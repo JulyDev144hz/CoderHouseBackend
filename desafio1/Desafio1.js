@@ -71,13 +71,6 @@ class ProductManager {
   }
 }
 
-let ids = 0;
-
-let createProduct = (title, description, price, thumbnail, stock) => {
-  code = ids;
-  ids++;
-  return new Product(title, description, price, thumbnail, code, stock);
-};
 console.log("// Creat ProductManager");
 let PM = new ProductManager();
 console.log("// PM.getProducts()");
@@ -96,7 +89,11 @@ PM.addProduct(
   25,
   "abc123"
 );
+console.log("// PM.getProducts()");
 console.log(PM.getProducts());
+console.log(
+  '// PM.addProduct("producto prueba",  "Este es un producto prueba",  200,  "Sin imagen",  25,  "abc123"'
+);
 PM.addProduct(
   "producto prueba",
   "Este es un producto prueba",
@@ -105,7 +102,9 @@ PM.addProduct(
   25,
   "abc123"
 );
+console.log('// PM.getProductById(2))')
 console.log(PM.getProductById(2));
+console.log('// PM.getProductById("abc123")')
 console.log(PM.getProductById("abc123"));
 
 // probando el id autoincremental
