@@ -12,7 +12,17 @@ class Product {
       stock == undefined
     )
       throw new Error("Hay campos sin definir");
+    
+    // solucion 1 (podria tener problemas con ids generadas por el usuario)
+    // if (code == undefined) {
+    //   code = ++this.constructor.count;
+    // }
+
+    // solucion 2 (llamo a PM, pero me aseguro de que no haya problema con las ids)
     if (code == undefined) {
+      while(PM.getProductById(this.constructor.count+1)!='Not found'){
+        ++this.constructor.count;
+      }
       code = ++this.constructor.count;
     }
 
@@ -102,9 +112,9 @@ PM.addProduct(
   25,
   "abc123"
 );
-console.log('// PM.getProductById(2))')
+console.log("// PM.getProductById(2))");
 console.log(PM.getProductById(2));
-console.log('// PM.getProductById("abc123")')
+console.log('// PM.getProductById("abc123")');
 console.log(PM.getProductById("abc123"));
 
 // probando el id autoincremental
@@ -129,5 +139,24 @@ console.log(PM.getProductById("abc123"));
 //   200,
 //   "Sin imagen",
 //   25,
+// );
+// console.log(PM.getProducts())
+
+// probando error de id repetido por id autoincremental
+// console.log('Probando ')
+// PM.addProduct(
+//   "producto prueba",
+//   "Este es un producto prueba",
+//   200,
+//   "Sin imagen",
+//   25,
+//   1
+// );
+// PM.addProduct(
+//   "producto prueba",
+//   "Este es un producto prueba",
+//   200,
+//   "Sin imagen",
+//   25
 // );
 // console.log(PM.getProducts())
