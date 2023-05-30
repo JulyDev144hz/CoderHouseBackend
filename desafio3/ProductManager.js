@@ -41,49 +41,39 @@ class ProductManager {
   }
 
   addProduct(title, description, price, thumbnail, code, stock) {
-    try {
-      let p = new Product(
-        ++this.constructor.countIds,
-        title,
-        description,
-        price,
-        thumbnail,
-        code,
-        stock
-      );
-      let users = JSON.parse(fs.readFileSync(this.path)).users;
-      fs.writeFileSync(this.path, JSON.stringify({ users: [...users, p] }));
-    } catch (error) {
-      console.error(error);
-    }
+    // saque los trycatch para manejarlos desde index.js
+
+    let p = new Product(
+      ++this.constructor.countIds,
+      title,
+      description,
+      price,
+      thumbnail,
+      code,
+      stock
+    );
+    let users = JSON.parse(fs.readFileSync(this.path)).users;
+    fs.writeFileSync(this.path, JSON.stringify({ users: [...users, p] }));
   }
   getProducts() {
-    try {
-      //si no existe users.json lanzo error
-      if (!fs.existsSync(this.path)) throw new Error("No existe users.json");
+    //si no existe users.json lanzo error
+    if (!fs.existsSync(this.path)) throw new Error("No existe users.json");
 
-      let users = JSON.parse(fs.readFileSync(this.path)).users;
+    let users = JSON.parse(fs.readFileSync(this.path)).users;
 
-      return users;
-    } catch (error) {
-      console.error(error);
-    }
+    return users;
   }
 
   getProductById(id) {
-    try {
-      //si no existe users.json lanzo error
-      if (!fs.existsSync(this.path)) throw new Error("No existe users.json");
-      let users = JSON.parse(fs.readFileSync(this.path)).users;
-      let user = users.find((user) => user.id == id);
-      // si no lo encuentra responde Not Found
-      if(!user){
-        throw new Error('Usuario no encontrado')
-      }
-      return user;
-    } catch (error) {
-      console.error(error);
+    //si no existe users.json lanzo error
+    if (!fs.existsSync(this.path)) throw new Error("No existe users.json");
+    let users = JSON.parse(fs.readFileSync(this.path)).users;
+    let user = users.find((user) => user.id == id);
+    // si no lo encuentra responde Not Found
+    if (!user) {
+      throw new Error("Usuario no encontrado");
     }
+    return user;
   }
   // Aca use {} asi al llamar la funcion y por ejemplo solo queres modificar price, el usuario tiene que poner la id y {price:20}
   updateProduct(id, { title, description, price, thumbnail, code, stock }) {
@@ -113,7 +103,7 @@ class ProductManager {
     try {
       // uso el metodo para no tener que repetir codigo en buscar al usuario
       let user = this.getProductById(id);
-      
+
       let users = JSON.parse(fs.readFileSync(this.path)).users;
       let filterUsers = users.filter((u) => u.id != id);
       fs.writeFileSync(this.path, JSON.stringify({ users: filterUsers }));
@@ -123,4 +113,4 @@ class ProductManager {
   }
 }
 
-export {ProductManager, Product}
+export { ProductManager, Product };

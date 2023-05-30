@@ -1,1 +1,67 @@
-{"users":[]}
+{
+  "users": [
+    {
+      "id": 1,
+      "title": "mandarina",
+      "description": "es una mandarina",
+      "price": "20",
+      "thumbnail": "Sin imagen",
+      "code": "abc432",
+      "stock": "20"
+    },
+    {
+      "id": 2,
+      "title": "mandarina",
+      "description": "es una mandarina",
+      "price": "20",
+      "thumbnail": "Sin imagen",
+      "code": "abc432",
+      "stock": "20"
+    },
+    {
+      "id": 3,
+      "title": "mandarina",
+      "description": "es una mandarina",
+      "price": "20",
+      "thumbnail": "Sin imagen",
+      "code": "abc432",
+      "stock": "20"
+    },
+    {
+      "id": 4,
+      "title": "mandarina",
+      "description": "es una mandarina",
+      "price": "20",
+      "thumbnail": "Sin imagen",
+      "code": "abc432",
+      "stock": "20"
+    },
+    {
+      "id": 5,
+      "title": "mandarina",
+      "description": "es una mandarina",
+      "price": "20",
+      "thumbnail": "Sin imagen",
+      "code": "abc432",
+      "stock": "20"
+    },
+    {
+      "id": 6,
+      "title": "mandarina",
+      "description": "es una mandarina",
+      "price": "20",
+      "thumbnail": "Sin imagen",
+      "code": "abc432",
+      "stock": "20"
+    },
+    {
+      "id": 7,
+      "title": "mandarina",
+      "description": "es una mandarina",
+      "price": "20",
+      "thumbnail": "Sin imagen",
+      "code": "abc432",
+      "stock": "20"
+    }
+  ]
+}
