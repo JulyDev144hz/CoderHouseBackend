@@ -1,8 +1,8 @@
 // nota: siempre antes de iniciar hacer por las dudas "npm i"
-
+// se inicia con npm run start
 import express from "express"
 import { ProductManager } from "./ProductManager.js"
-const PORT = 3000
+const PORT = 8080
 const app = express()
 app.use(express.urlencoded({extended:true}))
 
@@ -10,7 +10,9 @@ const PM = new ProductManager("./users.json");
 
 app.get("/",(req,res)=>{
     res.send({
-        message:PM.getProducts()
+        message:{
+            endPoints: ["http://localhost:8080/products", 'http://localhost:8080/products?limit=5', 'http://localhost:8080/products/2', 'http://localhost:8080/products/34123123']
+        }
     })
 })
 
@@ -50,11 +52,12 @@ app.get("/products/:pid",(req,res)=>{
 })
 
 // lo hice porque pense que estaba en la consigna y al final no, pero lo dejo por si lo queres ver y por si lo necesito para futuras entregas
+// tambien lo podrias usar para crear productos
 
 // app.get("/addProduct",(req,res)=>{
 //     let resp
 //     try{
-//         // http://localhost:3000/addProduct?title=mandarina&description=es una mandarina&price=20&thumbnail=Sin imagen&code=abc432&stock=20
+//         // http://localhost:8080/addProduct?title=mandarina&description=es una mandarina&price=20&thumbnail=Sin imagen&code=abc432&stock=20
 //         let {title, description, price, thumbnail, code, stock} = req.query
 
 //         PM.addProduct(title, description, price, thumbnail, code, stock)
