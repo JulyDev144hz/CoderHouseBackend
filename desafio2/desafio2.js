@@ -31,8 +31,8 @@ class Product {
   }
 }
 class ProductManager {
-  constructor() {
-    this.path = "./users.json";
+  constructor(path) {
+    this.path = "";
     // si no esta creado users.json lo creo
     if (!fs.existsSync(this.path)) {
       fs.writeFileSync(this.path, JSON.stringify({ users: [] }));
@@ -117,7 +117,7 @@ class ProductManager {
   }
 }
 
-let PM = new ProductManager();
+let PM = new ProductManager('./users.json');
 
 PM.addProduct('Manzana', 'Una manzana roja', 20, 'No tiene imagen', 'Aef#3', 2)
 PM.addProduct('Pomelo', '...', 10, 'No tiene imagen', 'dHf23', 3)
