@@ -1,7 +1,7 @@
 const { ProductManager } = require("../ProductManager.js");
 
 const path = require("path");
-const PM = new ProductManager(path.join(__dirname, "../users.json"));
+const PM = new ProductManager(path.join(__dirname, "../products.json"));
 
 class Products {
   get(req, res) {

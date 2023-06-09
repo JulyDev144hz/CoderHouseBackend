@@ -31,14 +31,14 @@ class ProductManager {
   static countIds = 0;
   constructor(path) {
     this.path = path;
-    // si no esta creado users.json lo creo
+    // si no esta creado products.json lo creo
     if (!fs.existsSync(this.path)) {
-      fs.writeFileSync(this.path, JSON.stringify({ users: [] }));
+      fs.writeFileSync(this.path, JSON.stringify({ products: [] }));
     }
 
-    this.getProducts().map((user) => {
-      if (user.id >= this.constructor.countIds) {
-        this.constructor.countIds = user.id;
+    this.getProducts().map((product) => {
+      if (product.id >= this.constructor.countIds) {
+        this.constructor.countIds = product.id;
       }
     });
   }
@@ -57,48 +57,48 @@ class ProductManager {
       category,
       thumbnails
     );
-    let users = JSON.parse(fs.readFileSync(this.path)).users;
-    fs.writeFileSync(this.path, JSON.stringify({ users: [...users, p] }));
+    let products = JSON.parse(fs.readFileSync(this.path)).products;
+    fs.writeFileSync(this.path, JSON.stringify({ products: [...products, p] }));
   }
   getProducts() {
-    //si no existe users.json lanzo error
-    if (!fs.existsSync(this.path)) throw new Error("No existe users.json");
+    //si no existe products.json lanzo error
+    if (!fs.existsSync(this.path)) throw new Error("No existe products.json");
 
-    let users = JSON.parse(fs.readFileSync(this.path)).users;
+    let products = JSON.parse(fs.readFileSync(this.path)).products;
 
-    return users;
+    return products;
   }
 
   getProductById(id) {
-    //si no existe users.json lanzo error
-    if (!fs.existsSync(this.path)) throw new Error("No existe users.json");
-    let users = JSON.parse(fs.readFileSync(this.path)).users;
-    let user = users.find((user) => user.id == id);
+    //si no existe products.json lanzo error
+    if (!fs.existsSync(this.path)) throw new Error("No existe products.json");
+    let products = JSON.parse(fs.readFileSync(this.path)).products;
+    let product = products.find((product) => product.id == id);
     // si no lo encuentra responde Not Found
-    if (!user) {
-      throw new Error("Usuario no encontrado");
+    if (!product) {
+      throw new Error("product no encontrado");
     }
-    return user;
+    return product;
   }
   // Aca use {} asi al llamar la funcion y por ejemplo solo queres modificar price, el usuario tiene que poner la id y {price:20}
   updateProduct(id, { title, description, price, thumbnail, code, stock }) {
     try {
-      let user = this.getProductById(id);
+      let product = this.getProductById(id);
 
       // verifica si los parametros estan definidos, y si lo estan modifica al usuario, sino lo deja como estaba
-      user.title = title ? title : user.title;
-      user.description = description ? description : user.description;
-      user.price = price ? price : user.price;
-      user.thumbnail = thumbnail ? thumbnail : user.thumbnail;
-      user.code = code ? code : user.code;
-      user.stock = stock ? stock : user.stock;
+      product.title = title ? title : product.title;
+      product.description = description ? description : product.description;
+      product.price = price ? price : product.price;
+      product.thumbnail = thumbnail ? thumbnail : product.thumbnail;
+      product.code = code ? code : product.code;
+      product.stock = stock ? stock : product.stock;
 
-      let users = JSON.parse(fs.readFileSync(this.path)).users;
+      let products = JSON.parse(fs.readFileSync(this.path)).products;
 
-      let filterUsers = users.filter((u) => u.id != id);
+      let filterProducts = products.filter((u) => u.id != id);
       fs.writeFileSync(
         this.path,
-        JSON.stringify({ users: [...filterUsers, user] })
+        JSON.stringify({ products: [...filterProducts, product] })
       );
     } catch (error) {
       console.error(error);
@@ -107,11 +107,11 @@ class ProductManager {
   deleteProduct(id) {
     try {
       // uso el metodo para no tener que repetir codigo en buscar al usuario
-      let user = this.getProductById(id);
+      let product = this.getProductById(id);
 
-      let users = JSON.parse(fs.readFileSync(this.path)).users;
-      let filterUsers = users.filter((u) => u.id != id);
-      fs.writeFileSync(this.path, JSON.stringify({ users: filterUsers }));
+      let products = JSON.parse(fs.readFileSync(this.path)).products;
+      let filterProducts = products.filter((u) => u.id != id);
+      fs.writeFileSync(this.path, JSON.stringify({ products: filterProducts }));
     } catch (error) {
       console.error(error);
     }
