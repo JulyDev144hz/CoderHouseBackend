@@ -1,15 +1,16 @@
 const fs = require("fs");
 
 class Product {
-  constructor(id, title, description, price, thumbnail, code, stock) {
+  constructor(id, title, description, code, price, status = true, stock, category, thumbnails) {
     // si hay un campo sin definir lanzo error
     if (
       title == undefined ||
       description == undefined ||
-      price == undefined ||
-      thumbnail == undefined ||
       code == undefined ||
+      price == undefined ||
+      status == undefined ||
       stock == undefined ||
+      category == undefined ||
       id == undefined
     )
       throw new Error("Hay campos del producto sin definir");
@@ -19,8 +20,10 @@ class Product {
     this.title = title;
     this.description = description;
     this.price = price;
-    this.thumbnail = thumbnail;
+    this.thumbnails = thumbnails;
     this.code = code;
+    this.status = status;
+    this.category = category;
     this.stock = stock;
   }
 }
@@ -40,17 +43,19 @@ class ProductManager {
     });
   }
 
-  addProduct(title, description, price, thumbnail, code, stock) {
+  addProduct(title, description,code , price, status, stock, category , thumbnails ) {
     // saque los trycatch para manejarlos desde index.js
 
     let p = new Product(
       ++this.constructor.countIds,
       title,
       description,
-      price,
-      thumbnail,
       code,
-      stock
+      price,
+      status,
+      stock,
+      category,
+      thumbnails
     );
     let users = JSON.parse(fs.readFileSync(this.path)).users;
     fs.writeFileSync(this.path, JSON.stringify({ users: [...users, p] }));

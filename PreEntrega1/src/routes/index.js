@@ -1,7 +1,8 @@
 const apiProducts = require('../components/products')
-
-module.exports = app =>{
-    apiProducts(app)
+const apiCarts = require('../components/carts')
+module.exports = (app, upload) =>{
+    apiProducts(app, upload)
+    apiCarts(app)
     app.get('/', (req,res)=>{
         res.send("OK")
     })

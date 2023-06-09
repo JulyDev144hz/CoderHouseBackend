@@ -1,8 +1,11 @@
 const {Router} = require('express')
 const productsController = require('./productsController/productsController')
-module.exports = app =>{
+module.exports = (app, upload) =>{
     let router = new Router()
     app.use('/api/products', router)
     router.get('/',productsController.get)
-    router.post('/',productsController.post)
+    router.get('/:pid',productsController.getId)
+    router.post('/', upload.array('thumbnails'),productsController.post)
+    router.put('/:pid', upload.array('thumbnails'),productsController.put)
+    router.delete('/:pid', productsController.delete)
 }

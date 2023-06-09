@@ -2,6 +2,16 @@ const express = require('express')
 const PORT = 8080
 const routes = require('./routes')
 
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+    destination: (req,res ,cb) =>{
+        cb(null, 'uploads/')
+    },
+    filename :(req,file,cb)=>{
+        cb(null,file.originalname)
+    }
+})
 class Server{
     constructor(){
         this.app = express()
@@ -12,9 +22,14 @@ class Server{
     settings(){
         this.app.use(express.json())
         this.app.use(express.urlencoded({extended:true}))
+        this.upload = multer({
+            storage
+        })
     }
+
+    
     routes(){
-        routes(this.app);
+        routes(this.app, this.upload);
     }
 
     listen(){
