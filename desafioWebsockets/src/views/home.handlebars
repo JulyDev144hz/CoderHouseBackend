@@ -1,0 +1,38 @@
+<div class="homePage">
+  <h1>Home</h1>
+  <p>Direcciones:</p>
+  <a href="/realtimeproducts">/realtimeproducts</a>
+
+  <div class="productsContainer">
+    <h2>Products</h2>
+
+    <div class="products" id="products">
+        
+    </div>
+  </div>
+</div>
+
+<script>
+
+    let productDOM = document.getElementById('products')
+    let data = fetch('/api/products')
+    data.then(response=>{
+      response.json().then(json=>{
+        json.map(p=>{
+          productDOM.innerHTML+=`
+          <div class="product">
+          <h3>${p.title}</h3>
+          <img src="\\${p.thumbnails[0]}" alt="">
+          
+          <p>${p.description}</p>
+          <p>
+            <span>$${p.price}</span>
+            <span>category: ${p.category}</span>
+          </p>
+        </div>
+          `
+        })
+      })
+    })
+  
+</script>
