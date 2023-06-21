@@ -1,44 +1,204 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.Navbar {
+  box-shadow: 0 0 5px;
+  padding: 10px;
+  h1 {
+    text-align: center;
+    a {
+      text-decoration: none;
+      color: black;
+      margin: 20px;
+    }
+  }
 }
 
-.homePage{
-    min-height: 100vh;
-    background: #d4afc6;
-    h1{
-        color: white;
-        text-align: center;
-        background: rgb(41, 146, 207);
-        box-shadow: 0 0 5px #000;
+#form {
+  box-shadow: 0 0 5px #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  padding: 20px;
+  width: 500px;
+  margin: 20px auto;
+  gap: 20px;
+  input[type="text"] {
+    background: transparent;
+    outline: none;
+    width: 100%;
+    padding: 5px;
+    border: none;
+    border-bottom: 2px solid black;
+    font-size: 20px;
+  }
+  textarea {
+    width: 100%;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid black;
+    resize: none;
+    font-size: 20px;
+    height: 90px;
+  }
+  .checkboxStatus {
+    position: relative;
+    display: flex;
+    gap: 5px;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+
+    .checkboxStyle {
+      position: absolute;
+      left: 0;
+      z-index: 1;
+      top: 0;
+      height: 32px;
+      width: 64px;
+      border: 2px solid black;
+      border-radius: 20px;
+      background: #ff0000;
+
+      &::after{
+        transition: .5s;
+        position: absolute;
+        border-radius: 50%;
+        content: '';
+        top: 2px;
+        left: 2px;
+        height: 24px;
+        width: 24px;
+        background: white;
+        outline: 1px solid #000;
+      }
     }
-}
-
-.productsContainer{
-    background: #8686867c;
-    h2{
-        text-align: center;
-    }
-
-    .products{
-        display: flex;
-        gap: 20px;
-        padding: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-        .product{
-            background: #ffffff;
-            box-shadow: 0 0 5px #000;
-            border-radius: 20px;
-            padding: 10px;
-
-            img{
-                width: 300px;
-                height: 300px;
-                object-fit: cover;
-            }
+    input[type="checkbox"] {
+      position: relative;
+      z-index: 2;
+      width: 64px;
+      height: 32px;
+      opacity: 0;
+      &:checked ~ .checkboxStyle{
+        background: rgb(0, 255, 0);
+        &::after{
+            left: 34px;
+            right: 2px;
         }
+      }
     }
+  }
+  .categoryContainer {
+    width: 100%;
+    #category {
+      width: 100%;
+      font-size: 20px;
+      border: none;
+      outline: none;
+      border-bottom: 2px solid black;
+    }
+  }
+
+  .imageContainer {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    #previewImage {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+    #thumbnails {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      //   opacity: 0;
+      color: transparent;
+      &::-webkit-file-upload-button {
+        visibility: hidden;
+      }
+      &:hover {
+        background: #0000007e;
+        cursor: pointer;
+        &::after {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          content: "Agregar Imagen";
+          color: rgb(255, 255, 255);
+          font-weight: bolder;
+          font-size: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+  button {
+    width: 100%;
+    font-size: 30px;
+    font-weight: bolder;
+    border: 2px solid black;
+    background: white;
+    outline: none;
+    border-radius: 5px;
+    transition: scale 0.2s;
+    &:hover {
+      scale: 1.02;
+    }
+  }
+}
+
+.productsContainer {
+  display: flex;
+  justify-content: start;
+  padding-top: 20px;
+  align-items: center;
+  flex-direction: column;
+  background: #dadada;
+  min-height: 100vh;
+  h2 {
+    font-size: 75px;
+  }
+  .products {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 260px);
+    justify-content: center;
+    padding: 20px;
+    gap: 20px;
+    .product {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 0 5px;
+      padding: 20px;
+      img {
+        width: 100%;
+        height: 256px;
+        object-fit: cover;
+      }
+      h3 {
+        text-align: center;
+        font-size: 25px;
+        margin-bottom: 5px;
+      }
+      div {
+        display: flex;
+        justify-content: space-between;
+        span:first-child {
+          color: green;
+        }
+      }
+    }
+  }
 }

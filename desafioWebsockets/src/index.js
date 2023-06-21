@@ -3,15 +3,15 @@ const PORT = process.env.PORT || 8080;
 const routes = require("./routes");
 const exphbs = require("express-handlebars");
 const { Server: HttpServer } = require("http");
-const SocketIO = require("socket.io");
+const Socket = require('./utils/sockets')
 const axios = require("axios");
 class Server {
   constructor() {
     this.app = express();
     this.http = new HttpServer(this.app);
     this.settings();
-    this.routes();
     this.sockets();
+    this.routes();
   }
 
   settings() {
@@ -26,20 +26,8 @@ class Server {
     routes(this.app);
   }
   sockets() {
-    this.io = SocketIO(this.http);
-
-    this.io.on("connection", async (socket) => {
-      console.log("cliente conectado");
-      this.io.sockets.emit('init', 'cliente conectado')
-
-      let response = await axios.get(`http://localhost:${PORT}/api/products`);
-      this.io.sockets.emit("refreshData", response.data);
-
-      socket.on("newProduct", async (data) => {
-        let response = await axios.get(`http://localhost:${PORT}/api/products`);
-        this.io.sockets.emit("refreshData", response.data);
-      });
-    });
+    this.socket = new Socket(this.http);
+    this.socket.init()
   }
 
   listen() {
@@ -48,4 +36,5 @@ class Server {
     });
   }
 }
+
 module.exports = new Server();

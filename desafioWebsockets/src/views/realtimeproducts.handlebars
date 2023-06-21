@@ -1,20 +1,30 @@
-<div class="homePage">
-  <h1>Home</h1>
-  <p>Direcciones:</p>
-  <a href="/">/home</a>
+<nav class="Navbar">
+  <h1><a href="/">Home</a> <a href="/realtimeproducts"><u>RealTimeProducts</u></a></h1>
+</nav>
 
   <form id="form" action="/api/products" method="POST" enctype="multipart/form-data">
-    <input type="text" name="title" placeholder="title" id="title">
-    <textarea name="description" cols="30" rows="10" id="description"></textarea>
-    <input type="text" name="price" placeholder="price" id="price">
-    <input type="text" name="code" placeholder="code" id="code">
-    <input type="text" name="stock" placeholder="stock" id="stock">
-    <input type="checkbox" name="status" id="status"> <label for="status">status</label>
+    <input type="text" name="title" placeholder="Titulo" id="title">
+    <textarea name="description" placeholder="Descripcion" cols="30" rows="10" id="description"></textarea>
+    <input type="text" name="price" placeholder="Precio" id="price">
+    <input type="text" name="code" placeholder="Codigo" id="code">
+    <input type="text" name="stock" placeholder="Stock" id="stock">
+    <div class="checkboxStatus">
+      <input type="checkbox" name="status" id="status"> 
+      <div class="checkboxStyle"></div>
+      <label for="status">Estado</label>
+    </div>
+    <div class="categoryContainer">
+      <h4>Categoria: </h4>
     <select name="category" id="category">
-      <option value="men">men</option>
-      <option value="women">women</option>
+      <option value="men">Hombre</option>
+      <option value="women">Mujer</option>
     </select>
-    <input type="file" multiple="multiple" name="thumbnails" id="thumbnails">
+    </div>
+    <div class="imageContainer">
+      
+    <img src="/public/imgs/imagePreview.png" alt="" id="previewImage">
+     <input type="file" multiple="multiple" name="thumbnails" id="thumbnails">
+    </div>
     <button>Enviar</button>
 
   </form>
@@ -27,59 +37,61 @@
     </div>
   </div>
 
-</div>
+
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
+  let imgInput = document.getElementById("thumbnails") 
+  let imgPreview = document.getElementById("previewImage") 
+  imgInput.onchange = evt => {
+  const [file] = imgInput.files
+  if (file) {
+    imgPreview.src = URL.createObjectURL(file)
+  }
+}
+
+
   const socket = io();
   const productsDOM = document.getElementById('products')
   socket.on('init', data=>console.log(data))
 
-  socket.on('refreshData',products=>{ 
-    productsDOM.innerHTML = ''
-    
-    products.map(p=>{ 
-    productsDOM.innerHTML+=`
-            <div class="product">
-            <h3>${p.title}</h3>
-            <img src="${p.thumbnails[0]}" alt="">
-            
-            <p>${p.description}</p>
-            <p>
-              <span>$${p.price}</span>
-              <span>category: ${p.category}</span>
-            </p>
-          </div>
-            ` }) 
+  const crearProducto = p =>{
+    let productoDiv = document.createElement('div')
+    productoDiv.classList.add('product')
+
+    let title = document.createElement('h3')
+    title.textContent = p.title
+
+    let img = document.createElement('img')
+    img.src = p.thumbnails[0]
+
+    let description = document.createElement('p')
+    description.textContent = p.description
+
+    let details = document.createElement('div')
+    let price = document.createElement('span')
+    price.textContent = '$'+p.price
+    let category = document.createElement('span')
+    category.textContent = "category:"+p.category
+    details.appendChild(price)
+    details.appendChild(category)
+
+    productoDiv.appendChild(title)
+    productoDiv.appendChild(img)
+    productoDiv.appendChild(description)
+    productoDiv.appendChild(details)
+    productsDOM.appendChild(productoDiv)
+  }
+
+  socket.on('newProduct', data=>{
+    crearProducto(data)
   })
 
+  socket.on('cargarProductos', data=>{
+    data.map(p=>crearProducto(p))
+  })
 
-
-  const form = document.getElementById('form')
-  form.addEventListener('submit',e=>{
-      e.preventDefault();
-      let data = {
-        "title":document.getElementById('title').value,
-        "description":document.getElementById('description').value,
-        "description":document.getElementById('description').value,
-        "price":document.getElementById('price').value,
-        "code":document.getElementById('code').value,
-        "stock":document.getElementById('stock').value,
-        "status":document.getElementById('status').value,
-        "category":document.getElementById('category').value
-        }
-
-      fetch('/api/products',{
-        headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-        },
-        method:'POST',
-        body:JSON.stringify(data)
-      })
-
-      socket.emit('newProduct')
-  });
+ 
 
   
 </script>

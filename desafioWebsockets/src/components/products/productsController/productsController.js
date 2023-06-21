@@ -2,6 +2,13 @@ const { ProductManager } = require("../ProductManager.js");
 
 const path = require("path");
 const PM = new ProductManager(path.join(__dirname, "../products.json"));
+const Socket = require('../../../utils/sockets')
+
+// uso el timeout de 5 segundos porque sin el puede llegarse a crear antes que la primera instancia.
+let socket;
+setTimeout(() => {
+  socket = new Socket()
+}, 5000);
 
 class Products {
   get(req, res) {
@@ -21,18 +28,26 @@ class Products {
   }
   post(req, res) {
     let data = req.body;
-
-    console.log(data)
-    data.status = data.status == 'on' ? 'true' : 'false'
     data.thumbnails = [];
     try {
       req.files.map((file) => {
         data.thumbnails.push(file.path);
       });
-    } catch (error) { 
-      
+    } catch (error) {
+      console.error(error);
     }
+
     try {
+      data.status = data.status == 'on' ? true : false
+
+      if(data.title.length == 0 
+        || data.description.length == 0
+        || data.code.length == 0
+        || data.stock.length == 0
+        || data.code.length == 0
+        || data.thumbnails.length == 0
+        ) throw new Error('Campos incorrectos')
+
       PM.addProduct(
         data.title,
         data.description,
@@ -43,9 +58,12 @@ class Products {
         data.category,
         data.thumbnails
       );
-      res.json({ message: "Creado con exito" });
+
+      socket.io.sockets.emit('newProduct', data)
+
+      res.redirect('http://localhost:8080/realtimeproducts')
     } catch (error) {
-      res.json({ error: error });
+      res.json({ "message": `${error}` });
     }
   }
   put(req, res) {

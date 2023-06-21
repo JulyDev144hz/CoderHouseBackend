@@ -5,39 +5,198 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-.homePage {
-  min-height: 100vh;
-  background: #d4afc6;
+.Navbar {
+  box-shadow: 0 0 5px;
+  padding: 10px;
 }
-.homePage h1 {
-  color: white;
+.Navbar h1 {
   text-align: center;
-  background: rgb(41, 146, 207);
-  box-shadow: 0 0 5px #000;
+}
+.Navbar h1 a {
+  text-decoration: none;
+  color: black;
+  margin: 20px;
 }
 
-.productsContainer {
-  background: rgba(134, 134, 134, 0.4862745098);
-}
-.productsContainer h2 {
-  text-align: center;
-}
-.productsContainer .products {
-  display: flex;
-  gap: 20px;
-  padding: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.productsContainer .products .product {
-  background: #ffffff;
+#form {
   box-shadow: 0 0 5px #000;
-  border-radius: 20px;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+  padding: 20px;
+  width: 500px;
+  margin: 20px auto;
+  gap: 20px;
 }
-.productsContainer .products .product img {
-  width: 300px;
+#form input[type=text] {
+  background: transparent;
+  outline: none;
+  width: 100%;
+  padding: 5px;
+  border: none;
+  border-bottom: 2px solid black;
+  font-size: 20px;
+}
+#form textarea {
+  width: 100%;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid black;
+  resize: none;
+  font-size: 20px;
+  height: 90px;
+}
+#form .checkboxStatus {
+  position: relative;
+  display: flex;
+  gap: 5px;
+  font-size: 20px;
+  justify-content: center;
+  align-items: center;
+}
+#form .checkboxStatus .checkboxStyle {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  top: 0;
+  height: 32px;
+  width: 64px;
+  border: 2px solid black;
+  border-radius: 20px;
+  background: #ff0000;
+}
+#form .checkboxStatus .checkboxStyle::after {
+  transition: 0.5s;
+  position: absolute;
+  border-radius: 50%;
+  content: "";
+  top: 2px;
+  left: 2px;
+  height: 24px;
+  width: 24px;
+  background: white;
+  outline: 1px solid #000;
+}
+#form .checkboxStatus input[type=checkbox] {
+  position: relative;
+  z-index: 2;
+  width: 64px;
+  height: 32px;
+  opacity: 0;
+}
+#form .checkboxStatus input[type=checkbox]:checked ~ .checkboxStyle {
+  background: rgb(0, 255, 0);
+}
+#form .checkboxStatus input[type=checkbox]:checked ~ .checkboxStyle::after {
+  left: 34px;
+  right: 2px;
+}
+#form .categoryContainer {
+  width: 100%;
+}
+#form .categoryContainer #category {
+  width: 100%;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid black;
+}
+#form .imageContainer {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+#form .imageContainer #previewImage {
+  width: 100%;
   height: 300px;
   -o-object-fit: cover;
      object-fit: cover;
+}
+#form .imageContainer #thumbnails {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: transparent;
+}
+#form .imageContainer #thumbnails::-webkit-file-upload-button {
+  visibility: hidden;
+}
+#form .imageContainer #thumbnails:hover {
+  background: rgba(0, 0, 0, 0.4941176471);
+  cursor: pointer;
+}
+#form .imageContainer #thumbnails:hover::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "Agregar Imagen";
+  color: rgb(255, 255, 255);
+  font-weight: bolder;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#form button {
+  width: 100%;
+  font-size: 30px;
+  font-weight: bolder;
+  border: 2px solid black;
+  background: white;
+  outline: none;
+  border-radius: 5px;
+  transition: scale 0.2s;
+}
+#form button:hover {
+  scale: 1.02;
+}
+
+.productsContainer {
+  display: flex;
+  justify-content: start;
+  padding-top: 20px;
+  align-items: center;
+  flex-direction: column;
+  background: #dadada;
+  min-height: 100vh;
+}
+.productsContainer h2 {
+  font-size: 75px;
+}
+.productsContainer .products {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 260px);
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+}
+.productsContainer .products .product {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 0 5px;
+  padding: 20px;
+}
+.productsContainer .products .product img {
+  width: 100%;
+  height: 256px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.productsContainer .products .product h3 {
+  text-align: center;
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+.productsContainer .products .product div {
+  display: flex;
+  justify-content: space-between;
+}
+.productsContainer .products .product div span:first-child {
+  color: green;
 }/*# sourceMappingURL=styles.css.map */

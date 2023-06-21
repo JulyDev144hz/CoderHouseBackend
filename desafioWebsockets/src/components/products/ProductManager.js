@@ -45,8 +45,8 @@ class ProductManager {
 
   addProduct(title, description,code , price, status, stock, category , thumbnails ) {
     // saque los trycatch para manejarlos desde index.js
+    
 
-    try {
       let p = new Product(
         ++this.constructor.countIds,
         title,
@@ -60,9 +60,7 @@ class ProductManager {
       );
       let products = JSON.parse(fs.readFileSync(this.path)).products;
       fs.writeFileSync(this.path, JSON.stringify({ products: [...products, p] }));
-    } catch (error) {
-      console.error(error);
-    }
+    
   }
   getProducts() {
     //si no existe products.json lanzo error

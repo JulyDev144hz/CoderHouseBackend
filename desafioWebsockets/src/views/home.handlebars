@@ -1,7 +1,6 @@
-<div class="homePage">
-  <h1>Home</h1>
-  <p>Direcciones:</p>
-  <a href="/realtimeproducts">/realtimeproducts</a>
+<nav class="Navbar">
+  <h1><a href="/"><u>Home</u></a> <a href="/realtimeproducts">RealTimeProducts</a></h1>
+</nav>
 
   <div class="productsContainer">
     <h2>Products</h2>
@@ -10,27 +9,43 @@
         
     </div>
   </div>
-</div>
 
 <script>
 
-    let productDOM = document.getElementById('products')
+    let productsDOM = document.getElementById('products')
     let data = fetch('/api/products')
+    const crearProducto = p =>{
+      let productoDiv = document.createElement('div')
+      productoDiv.classList.add('product')
+      
+      let title = document.createElement('h3')
+      title.textContent = p.title
+
+      let img = document.createElement('img')
+      img.src = p.thumbnails[0]
+
+      let description = document.createElement('p')
+      description.textContent = p.description
+
+      let details = document.createElement('div')
+      let price = document.createElement('span')
+      price.textContent = '$'+p.price
+      let category = document.createElement('span')
+      category.textContent = "category:"+p.category
+      details.appendChild(price)
+      details.appendChild(category)
+
+      productoDiv.appendChild(title)
+      productoDiv.appendChild(img)
+      productoDiv.appendChild(description)
+      productoDiv.appendChild(details)
+      productsDOM.appendChild(productoDiv)
+    }
+
     data.then(response=>{
       response.json().then(json=>{
         json.map(p=>{
-          productDOM.innerHTML+=`
-          <div class="product">
-          <h3>${p.title}</h3>
-          <img src="\\${p.thumbnails[0]}" alt="">
-          
-          <p>${p.description}</p>
-          <p>
-            <span>$${p.price}</span>
-            <span>category: ${p.category}</span>
-          </p>
-        </div>
-          `
+          crearProducto(p)
         })
       })
     })
