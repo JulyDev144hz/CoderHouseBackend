@@ -56,6 +56,13 @@ class Cart {
     let response = await cartService.addProduct(cid, pid);
     res.json(response);
   }
+
+  async view(req,res,next){
+    let {cid} = req.params;
+    const { page = 1, limit = 10, query = "{}", sort = "{}" } = req.query;
+    let response = await cartService.getCart(cid, { page, limit }, {query, sort});
+    res.render('cart', {cart:response})
+  }
 }
 
 module.exports = new Cart();

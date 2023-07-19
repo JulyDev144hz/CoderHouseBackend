@@ -28,6 +28,23 @@
      object-fit: cover;
 }
 
+.mainCart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mainCart .productTable {
+  box-shadow: 0 0 5px #000;
+  border-radius: 20px;
+  padding: 20px;
+}
+.mainCart .productTable tbody .productRow {
+  text-align: center;
+}
+.mainCart .productTable tbody .productRow img {
+  width: 64px;
+}
+
 .navBar {
   height: 64px;
   box-shadow: 0 0 5px #000;

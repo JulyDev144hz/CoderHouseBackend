@@ -13,6 +13,7 @@
       <ul class="options">
         <li><a href="/chatView">Chat</a></li>
         <li><a href="/products">Products</a></li>
+        <li><a href="/cart/64b74c217acb6a39b4ad944f">Ver Carrito de Admin</a></li>
       </ul>
     </nav>
 
@@ -26,7 +27,7 @@
           <span class="price"><%= product.precio%></span>
           <span class="stock">Stock: <%= product.stock%></span>
         </p>
-        <a href="/api/cart/64b74c217acb6a39b4ad944f/addProduct/<%= product._id%>">Agregar al carrito</a>
+        <button href="" onclick="addToCart('<%= product._id%>')">Agregar al carrito</button>
       </div>
       <% }); %>
     </div>
@@ -40,5 +41,10 @@
         <a href="<%= products.nextLink %>">NextPage</a>
       <% }%>
     </div>
+    <script>
+      const addToCart = id=>{
+        fetch('/api/cart/64b74c217acb6a39b4ad944f/addProduct/'+id)
+      }
+    </script>
   </body>
 </html>

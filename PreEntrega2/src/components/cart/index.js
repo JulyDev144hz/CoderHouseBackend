@@ -13,4 +13,9 @@ module.exports = app =>{
   router.post("/", cartController.create);
   // router.put("/:id", cartController.update);
   router.delete("/:cid", cartController.delete);
+
+
+  const routerViews = new Router();
+  app.use('/cart', routerViews)
+  routerViews.get('/:cid',cartController.view)
 }

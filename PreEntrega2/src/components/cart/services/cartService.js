@@ -4,17 +4,24 @@ class Cart {
   async getCart(id, paginator = null, { query, sort }) {
     try {
       let response = id
-        ? await cartModel.findById(id)
+        ? await cartModel.paginate(
+            {_id:id, ...JSON.parse(query)},
+            {
+              ...paginator,
+              sort: JSON.parse(sort),
+              populate: ["products.product", "user"],
+            }
+          )
         : await cartModel.paginate(JSON.parse(query), {
             ...paginator,
             sort: JSON.parse(sort),
-            populate: ["products.product", 'user'],
+            populate: ["products.product", "user"],
           });
-      if (id) {
-        return response;
-      }
+      // if (id) {
+      //   return response;
+      // }
 
-      let payload = response.docs;
+      let payload = response.docs[0];
       let status;
       if (payload) {
         status = payload.length > 0 ? "success" : "error";
@@ -38,7 +45,6 @@ class Cart {
       return [];
     }
   }
-
 
   async create(payload) {
     try {
@@ -69,16 +75,16 @@ class Cart {
 
   async delete(id) {
     try {
-      return await cartModel.findByIdAndUpdate(id, {products: []});
+      return await cartModel.findByIdAndUpdate(id, { products: [] });
     } catch (error) {
       console.log(error);
     }
   }
   async deleteProduct(cid, pid) {
     try {
-      let resp =  await cartModel.findById(cid);
-      let newData = resp.products.filter(p => p.product != pid)
-      return await cartModel.findByIdAndUpdate(cid, {products: newData})
+      let resp = await cartModel.findById(cid);
+      let newData = resp.products.filter((p) => p.product != pid);
+      return await cartModel.findByIdAndUpdate(cid, { products: newData });
     } catch (error) {
       console.log(error);
     }
@@ -86,10 +92,10 @@ class Cart {
   async updateCantProduct(cid, pid, cant) {
     try {
       let resp = await cartModel.findById(cid);
-      let p = resp.products.find(x => x.product == pid)
-      resp.products[resp.products.indexOf(p)].cant = cant
-      
-      return await cartModel.findByIdAndUpdate(cid, resp)
+      let p = resp.products.find((x) => x.product == pid);
+      resp.products[resp.products.indexOf(p)].cant = cant;
+
+      return await cartModel.findByIdAndUpdate(cid, resp);
     } catch (error) {
       console.log(error);
     }
@@ -98,8 +104,8 @@ class Cart {
     try {
       let resp = await cartModel.findById(cid);
 
-      resp.products.push({product: pid})
-      return await cartModel.findByIdAndUpdate(cid, resp)
+      resp.products.push({ product: pid });
+      return await cartModel.findByIdAndUpdate(cid, resp);
     } catch (error) {
       console.log(error);
     }
