@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Products</title>
+  </head>
+  <body>
+    <nav class="navBar">
+      <h1>Products</h1>
+      <ul class="options">
+        <li><a href="/chatView">Chat</a></li>
+        <li><a href="/products">Products</a></li>
+      </ul>
+    </nav>
+
+    <div class="products">
+      <% products.payload.forEach(product => { %>
+      <div class="product">
+        <img src="<%= product.imagen%>" alt="Imagen" />
+        <h4><%= product.nombre %></h4>
+        <p class="description"><%= product.descripcion%></p>
+        <p class="info">
+          <span class="price"><%= product.precio%></span>
+          <span class="stock">Stock: <%= product.stock%></span>
+        </p>
+        <a href="/api/cart/64b74c217acb6a39b4ad944f/addProduct/<%= product._id%>">Agregar al carrito</a>
+      </div>
+      <% }); %>
+    </div>
+
+    <div class="handlePage">
+      <span class="currentPage"> <%= products.page %>/<%=products.totalPages%></span>
+      <% if (products.hasPrevPage) {%>
+      <a href="<%= products.prevLink %>">prevLink</a>
+      <% }%>
+      <% if (products.hasNextPage) {%>
+        <a href="<%= products.nextLink %>">NextPage</a>
+      <% }%>
+    </div>
+  </body>
+</html>
