@@ -1,0 +1,162 @@
+* {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.swal2-popup {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.products {
+  padding: 0 10vw;
+  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+.products .product {
+  box-shadow: 0 0 5px #000;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  gap: 5px;
+}
+.products .product img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.dashboardBody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  flex-direction: column;
+}
+.dashboardBody .infoUser {
+  background: linear-gradient(135deg, rgba(119, 0, 255, 0.2588235294), #3215d6);
+  box-shadow: 0 0 5px #000;
+  padding: 10px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.dashboardBody .infoUser h2 {
+  margin: 10px 0;
+  font-size: 40px;
+  color: white;
+  text-shadow: 0 0 5px #000;
+}
+.dashboardBody .infoUser ul {
+  list-style: none;
+}
+.dashboardBody .infoUser ul li {
+  font-size: 25px;
+  color: white;
+  text-shadow: 0 0 5px #000;
+}
+.dashboardBody .infoUser a {
+  text-decoration: none;
+  color: white;
+  background: #6535bd;
+  align-self: center;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px #000;
+}
+
+.mainCart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mainCart .productTable {
+  box-shadow: 0 0 5px #000;
+  border-radius: 20px;
+  padding: 20px;
+}
+.mainCart .productTable tbody .productRow {
+  text-align: center;
+}
+.mainCart .productTable tbody .productRow img {
+  width: 64px;
+}
+
+.navBar {
+  height: 64px;
+  box-shadow: 0 0 5px #000;
+  position: relative;
+  margin-bottom: 20px;
+}
+.navBar h1 {
+  height: 64px;
+  text-align: center;
+  line-height: 64px;
+}
+.navBar .options {
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  right: 10px;
+  list-style: none;
+}
+.navBar .options li {
+  padding: 10px;
+}
+.navBar a {
+  color: black;
+  text-decoration: none;
+}
+
+.centerChat {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.centerChat .chatbox {
+  position: relative;
+  padding: 20px;
+  padding-bottom: 42px;
+  box-shadow: 0 0 5px #000;
+  border-radius: 20px;
+}
+.centerChat .chatbox .messageDiv {
+  position: absolute;
+  bottom: 0;
+  height: 32px;
+  left: 0;
+  right: 0;
+  border-radius: 0 0 20px 20px;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  overflow: hidden;
+}
+.centerChat .chatbox .messageDiv input {
+  padding: 5px;
+  outline: none;
+  border: none;
+  box-shadow: inset 0 0 5px #000;
+}
+.centerChat .chatbox .messageDiv button {
+  font-size: 20px;
+  border: none;
+  outline: none;
+  background: white;
+}
+.centerChat .chatbox .messageDiv button:hover {
+  background: #e7e7e7;
+  cursor: pointer;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 90vh;
+  -o-object-fit: cover;
+     object-fit: cover;
+}/*# sourceMappingURL=styles.css.map */
