@@ -16,13 +16,17 @@
         height: 100vh;
         background: #eeeeee;
       }
+      #cardBox{
+        width: 100%;
+        max-width: 600px;
+      }
     </style>
   </head>
   <body>
     <div
       class="h-100 container d-flex align-items-center justify-content-center"
     >
-      <div class="card w-50 shadow-sm">
+      <div class="card shadow-sm" id="cardBox">
         <form
           action="/auth/login"
           method="POST"
@@ -49,13 +53,16 @@
               required
             />
           </div>
-          <div>
-            <button type="submit" class="btn btn-primary">
+          <div class="d-flex flex-column w-100 gap-2 align-items-center">
+            <button type="submit" class="btn btn-primary w-100">
               Iniciar Sesion
             </button>
-            <a href="/auth/register" class="btn btn-outline-secondary"
+            <a href="/auth/register" class="btn btn-outline-secondary w-100"
               >Registrarse</a
             >
+            <a href="/auth/github" class="btn btn-dark w-100 d-flex justify-content-center align-items-center gap-2"><img src="/github.svg" alt=""> Ingresar con github</a>
+            <a href="/auth/recovery" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover w-100 text-center">Recuperar Password</a>
+            
           </div>
         </form>
       </div>

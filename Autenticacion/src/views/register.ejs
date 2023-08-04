@@ -16,42 +16,79 @@
         height: 100vh;
         background: #eeeeee;
       }
+      #cardBox{
+        width: 100%;
+        max-width: 600px;
+      }
     </style>
   </head>
   <body>
     <div
       class="h-100 container d-flex align-items-center justify-content-center"
     >
-      <div class="card w-50 shadow-sm">
+      <div class="card shadow-sm" id="cardBox">
         <form
           action="/auth/register"
           method="POST"
-          class="d-flex flex-column gap-2 p-3 "
+          class="d-flex flex-column gap-2 p-3"
         >
-        <h1>Registrarse</h1>
+          <h1>Registrarse</h1>
           <div>
             <label for="nombre">Nombre</label>
-            <input class="form-control" type="text" id="nombre" name="nombre" required />
+            <input
+              class="form-control"
+              type="text"
+              id="nombre"
+              name="nombre"
+              required
+            />
           </div>
           <div>
             <label for="apellido">Apellido</label>
-            <input class="form-control" type="text" id="apellido" name="apellido" required />
+            <input
+              class="form-control"
+              type="text"
+              id="apellido"
+              name="apellido"
+              required
+            />
           </div>
           <div>
             <label for="email">Ingresa tu email</label>
-            <input class="form-control" type="text" id="email" name="email" required />
+            <input
+              class="form-control"
+              type="text"
+              id="email"
+              name="email"
+              required
+            />
           </div>
           <div>
             <label for="password">Ingresa tu password</label>
-            <input class="form-control" type="password" id="password" name="password" required />
+            <input
+              class="form-control"
+              type="password"
+              id="password"
+              name="password"
+              required
+            />
           </div>
           <div>
             <label for="role">Role</label>
-            <input class="form-control" type="text" id="role" name="role" required />
+            <input
+              class="form-control"
+              type="text"
+              id="role"
+              name="role"
+              required
+            />
           </div>
-          <div>
-            <button type="submit" class="btn btn-primary">Registrarse</button>
-            <a href="/auth/login" class="btn btn-outline-secondary">Iniciar Sesion</a>
+          <div class="d-flex w-100 gap-2 align-items-center flex-column">
+            <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+            <a href="/auth/login" class="btn btn-outline-secondary w-100"
+              >Iniciar Sesion</a
+            >
+            <a href="/auth/recovery" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover w-100 text-center">Recuperar Password</a>
           </div>
         </form>
       </div>
