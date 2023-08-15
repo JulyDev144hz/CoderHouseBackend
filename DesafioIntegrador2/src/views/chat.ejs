@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <nav class="navBar">
+      <h1>Chat Socket</h1>
+      <ul class="options">
+        <li><a href="/">Volver</a></li>
+      </ul>
+    </nav>
+    <div class="centerChat">
+      <div class="chatbox">
+        <div id="chat" class="chat"></div>
+        <div class="messageDiv">
+          <input id="messageInput" type="text" />
+          <button id="messageButton">Enviar</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      let correo = "";
+      let regMail = RegExp("^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$");
+      const alertaCorreo = () => {
+        Swal.fire({
+          title: "Ingrese su Correo Electronico",
+          input: "text",
+          inputAttributes: {
+            autocapitalize: "off",
+          },
+          showCancelButton: false,
+          confirmButtonText: "Ingresar",
+
+          allowOutsideClick: () => !Swal.isLoading(),
+        }).then((result) => {
+          if (result.isConfirmed) {
+            if (regMail.test(result.value)) {
+              correo = result.value;
+              Swal.fire({
+                title: "Ingreso con exito",
+                icon: "success",
+              });
+            } else {
+              Swal.fire({
+                title: "Mail no valido",
+                icon: "error",
+              }).then((e) => {
+                alertaCorreo();
+              });
+            }
+          } else {
+            alertaCorreo();
+          }
+        });
+      };
+      const enviarMensage = () => {
+        let msg = $("#messageInput").val();
+        socket.emit("newMessage", { user: correo, message: msg });
+        $("#messageInput").val("");
+      };
+        alertaCorreo();
+
+      const socket = io();
+      socket.on("init", (e) => {
+        console.log(e);
+      });
+      socket.on("loadMessages", (e) => {
+        $("#chat").html("");
+        let chat = "";
+        e.map((data) => {
+          chat += `<b>${data.user}</b>: ${data.message}<br>`;
+        });
+        $("#chat").html(chat);
+      });
+
+      $("#messageButton").on("click", (e) => {
+        enviarMensage();
+      });
+
+      $("#messageInput").keydown((e) => {
+        if (e.which == 13) {
+          enviarMensage();
+        }
+      });
+
+      socket.on("newMessage", (data) => {
+        $("#chat").html(
+          `${$("#chat").html()}<b>${data.user}</b>: ${data.message}<br>`
+        );
+      });
+    </script>
+  </body>
+</html>

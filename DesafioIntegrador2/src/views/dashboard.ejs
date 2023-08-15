@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>DashBoard!</title>
+  </head>
+  <body>
+    <nav class="navBar">
+      <h1>Bienvenido <%= user.nombre+" "+user.apellido %></h1>
+      <ul class="options">
+        <li><a href="/chatView">Chat</a></li>
+        <li><a href="/products">Products</a></li>
+        <li><a href="/auth/dashBoard">Dashboard</a></li>
+        <li><a href="/auth/logout">LogOut</a></li>
+      </ul>
+    </nav>
+    <div class="dashboardBody">
+      <div class="infoUser">
+        <h2>Estos son tus datos</h2>
+        <ul>
+          <li>Nombre: <%= user.nombre%></li>
+          <li>Apellido: <%= user.apellido%></li>
+          <li>Email: <%= user.email%></li>
+          <li>Role: <%= user.role%></li>
+        </ul>
+        <a href="/">Volver a Ecommerce</a>
+      </div>
+    </div>
+  </body>
+</html>
