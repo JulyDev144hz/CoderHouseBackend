@@ -28,7 +28,7 @@ const modelEntity = model(collectionName, collectionSchema);
 
 const faker = require("faker");
 class Cart {
-  async getCart(id, paginator = null, { query, sort }) {
+  async getCart(id, paginator = null, { query = "{}", sort = "{}" }) {
     try {
       let response = id
         ? await modelEntity.paginate(
@@ -48,7 +48,7 @@ class Cart {
       //   return response;
       // }
 
-      let payload = response.docs[0];
+      let payload = response.docs;
       let status;
       if (payload) {
         status = payload.length > 0 ? "success" : "error";
