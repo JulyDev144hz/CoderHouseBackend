@@ -1,4 +1,4 @@
-const userModel = require("../../../dao/mongo/user");
+const {userModel} = require("../../../dao/mongo/user");
 const { createHash, isValidPassword } = require("../middleware/bcrypt");
 const passport = require('passport')
 const local = require('passport-local')

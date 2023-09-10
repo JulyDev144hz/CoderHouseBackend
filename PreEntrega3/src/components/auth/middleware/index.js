@@ -28,9 +28,19 @@ function isAdmin(req, res, next) {
     res.redirect("/auth/dashboard");
   }
 }
-
+function isNotAdmin(req, res, next) {
+  try {
+    if (req.session.user.role == "admin") {
+      return res.redirect('/auth/dashboard')
+    }
+    throw new Error("eres admin");
+  } catch (error) {
+    return next()
+  }
+}
 module.exports = {
   isAuth,
   isNotAuth,
-  isAdmin
+  isAdmin,
+  isNotAdmin
 };

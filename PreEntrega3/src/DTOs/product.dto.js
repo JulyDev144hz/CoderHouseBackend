@@ -5,7 +5,7 @@ class ProductDTO{
         this.precio = product.precio
         this.stock = product.stock ? product.stock : 0
         this.edad = product.edad
-        this.status = product.status
+        this.status = product.status?  product.status != 'on' && product.status != "off" ? product.status: product.status == "on" ? true : false : false
         this.imagen = product.imagen ? product.imagen : `https://picsum.photos/640/480`
     }
 }

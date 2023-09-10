@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Cart</title>
+  </head>
+  <body>
+    <nav class="navBar">
+      <h1>Ticket</h1>
+      <ul class="options">
+        <li><a href="/chatView">Chat</a></li>
+        <li><a href="/auth/logout">LogOut</a></li>
+        <li><a href="/auth/dashboard">DashBoard</a></li>        
+        <li><a href="/products">Products</a></li>
+        <li>
+          <a href="/cart">Ver Carrito</a>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="mainTicket">
+        <h1>Compra realizaca con exito!</h1>
+        <div class="shadowTicket">
+
+            <div class="ticket">
+                <h3 class="ticketTitle">TICKET DE COMPRA</h3><br>   
+                <span  class="ticketBar">------------------------------------------------------------------------------------------</span><br>   
+                <% let fecha = new Date(ticket.purchase_datetime)%>
+            <span class="ticketText">FECHA: <%= `${fecha.toUTCString()}`%></span><br>   
+                <span class="ticketText">COMPRADOR: <%=ticket.purchaser%></span><br>   
+                <span class="ticketText">TOTAL: <%=ticket.amount%></span><br>   
+                <span class="ticketBar">------------------------------------------------------------------------------------------</span><br>   
+                <span class="ticketText">PRODUCTOS FALTANTES:</span><br>   
+                <p><% Object.keys(ticket.pfaltantes).forEach((key, index)=>{%>
+                    <%=key%> : <%= ticket.pfaltantes[key]%><br>                
+                <%}) %></p>
+                <img src="https://barcodeapi.org/api/<%=ticket.code%>" class="ticketCode">
+            </div>
+        </div>
+
+
+
+
+    </main>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+
+
+    </script>
+  </body>
+</html>

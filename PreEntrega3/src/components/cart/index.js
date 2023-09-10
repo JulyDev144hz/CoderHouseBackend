@@ -17,5 +17,5 @@ module.exports = app =>{
 
   const routerViews = new Router();
   app.use('/cart', routerViews)
-  routerViews.get('/:cid',cartController.view)
+  routerViews.get('/',cartController.view)
 }

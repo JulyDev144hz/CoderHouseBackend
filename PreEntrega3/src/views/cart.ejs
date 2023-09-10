@@ -12,9 +12,11 @@
       <h1>Cart</h1>
       <ul class="options">
         <li><a href="/chatView">Chat</a></li>
+        <li><a href="/auth/logout">LogOut</a></li>
+        <li><a href="/auth/dashboard">DashBoard</a></li>
         <li><a href="/products">Products</a></li>
         <li>
-          <a href="/cart/64b74c217acb6a39b4ad944f">Ver Carrito de Admin</a>
+          <a href="/cart">Ver Carrito</a>
         </li>
       </ul>
     </nav>
@@ -31,24 +33,40 @@
           </tr>
         </thead>
         <tbody>
-          <% cart.payload.products.forEach(p => { %>
+          <% cart.products.forEach(p => { %>
           <tr class="productRow" id="<%=p.product._id%>">
             <td><img src="<%= p.product.imagen%>" alt="" /></td>
             <td><%= p.product.nombre %></td>
             <td><%= p.product.precio %></td>
             <td><%= p.cant %></td>
-            <td><button onclick="remove('<%=p.product._id%>')">Remover</button></td>
+            <td>
+              <button onclick="remove('<%=p.product._id%>')">Remover</button>
+            </td>
           </tr>
           <% }); %>
         </tbody>
       </table>
+
+      <a href="/buy" class="BuyButton">Realizar Compra</a>
     </main>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if (typeof error != "undefined"){ %>;
     <script>
-        const remove = (id)=>{
-            fetch('/api/cart/64b74c217acb6a39b4ad944f/products/'+id, {method:'DELETE'})
-            $(`#${id}`).remove()
-        }
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "<%=error%>",
+      });
+    </script>
+    <% } %>
+    <script>
+      const remove = (id) => {
+        fetch("/api/cart/<%=user.cartID%>/products/" + id, {
+          method: "DELETE",
+        });
+        $(`#${id}`).remove();
+      };
     </script>
   </body>
 </html>

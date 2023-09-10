@@ -4,7 +4,7 @@ class cartRepository {
     this.dao = dao;
   }
 
-  async getCart(id, paginator = null, { query, sort }) {
+  async getCart(id, paginator = null, { query, sort}) {
     return await this.dao.getCart(id,paginator,{query,sort})
   }
 
@@ -24,6 +24,9 @@ class cartRepository {
   }
   async deleteProduct(cid, pid) {
     return await this.dao.delete(cid,pid)
+  }
+  async clearCart(cid){
+    return await this.dao.clearCart(cid)
   }
   async updateCantProduct(cid, pid, cant) {
     return await this.dao.updateCantProduct(cid,pid,cant)

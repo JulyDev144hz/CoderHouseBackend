@@ -16,44 +16,44 @@
         <li><a href="/auth/dashboard">DashBoard</a></li>
         <li><a href="/auth/logout">LogOut</a></li>
         <li>
-          <a href="/cart/64b74c217acb6a39b4ad944f">Ver Carrito de Admin</a>
+          <a href="/cart/<%=user.cartID%>">Ver Carrito</a>
         </li>
       </ul>
     </nav>
 
     <div class="mainUpdateProduct">
-      <div class="updateProduct">
+      <form method="post" action="/api/product/update/<%=product._id%>" class="updateProduct">
         <img src="<%=product.imagen%>" alt="" />
 
         <div class="inputName">
           <span>Nombre: </span>
-          <input type="text" value="<%=product.nombre%>" />
+          <input type="text" name="nombre" value="<%=product.nombre%>" />
         </div>
 
         <div class="inputDescription">
           <span>Descripcion: </span
-          ><textarea name="" id="" cols="30" rows="10">
+          ><textarea name="descripcion" id="" cols="30" rows="10">
             <%=product.descripcion%></textarea
           >
         </div>
 
         <div class="inputPrice">
           <span>Precio:</span>
-          <input type="text" value="<%=product.precio%>" />
+          <input type="text" name="precio" value="<%=product.precio%>" />
         </div>
 
         <div class="inputStock">
           <span>Stock: </span>
-          <input type="text" value="<%=product.stock%>" />
+          <input name="stock" type="text" value="<%=product.stock%>" />
         </div>
         <div class="inputStatus">
           <span>Status: </span>
-          <input type="checkbox" name="" id="" <%=product.status?
+          <input name="status" type="checkbox" name="" id="" <%=product.status?
           "checked":""%>>
         </div>
 
         <button class="updateButton">Actualizar Producto</button>
-      </div>
+      </form>
     </div>
   </body>
 </html>

@@ -83,7 +83,6 @@ class Server {
                 nombre: profile._json.name,
                 email:email
               };
-              console.log(email)
 
               let result = await userModel.create(newUser);
               return done(null, result);
@@ -119,10 +118,6 @@ class Server {
 
   route() {
     this.app.use((req, res, next) => {
-      // req = {
-      //   ...req,
-      //   socketManager: this.socket
-      // }
       req.socketManager = this.socket;
       next();
     });

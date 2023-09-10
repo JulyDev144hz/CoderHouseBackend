@@ -20,7 +20,6 @@ class Cart {
   async create(req, res, next) {
     try {
       let payload = req.body;
-      console.log(payload)
       let response = await CartService.create(payload);
       res.json(response);
     } catch (error) {
@@ -58,10 +57,10 @@ class Cart {
   }
 
   async view(req,res,next){
-    let {cid} = req.params;
     const { page = 1, limit = 10, query = "{}", sort = "{}" } = req.query;
-    let response = await CartService.getCart(cid, { page, limit }, {query, sort});
-    res.render('cart', {cart:response})
+    let response = await CartService.getCart(req.session.user.cartID, { page, limit }, {query, sort});
+
+    res.render('cart', {cart:response.payload[0], user: req.session.user})
   }
 }
 

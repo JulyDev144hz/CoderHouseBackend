@@ -24,6 +24,7 @@ module.exports = (app) => {
   })
   router.post('/login', passport.authenticate('login', {failureRedirect:"/faillogin"}),
   async (req,res)=>{
+
     if(!req.user) return res.status(400).send({status:"error", error:"Invalid credentials"})
    
     req.session.user = {
@@ -32,7 +33,9 @@ module.exports = (app) => {
       email:req.user.email,
       role:req.user.role,
       photo:req.user.photo,
+      _id:req.user._id,
     }
+
     res.redirect('/auth/dashboard')
 
     // res.send({status:"success",payload:req.user})

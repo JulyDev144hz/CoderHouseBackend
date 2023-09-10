@@ -116,6 +116,14 @@ class Cart {
       console.log(error);
     }
   }
+  async clearCart(cid){
+    try {
+      return await modelEntity.findByIdAndUpdate(cid,{products:[]})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   async updateCantProduct(cid, pid, cant) {
     try {
       let resp = await modelEntity.findById(cid);
@@ -130,8 +138,18 @@ class Cart {
   async addProduct(cid, pid) {
     try {
       let resp = await modelEntity.findById(cid);
-
-      resp.products.push({ product: pid });
+      let filtro =resp.products.filter(p=>{
+        return p.product._id == pid
+      })
+      if (filtro.length == 0){
+        resp.products.push({ product: pid });
+      }else{
+        resp.products.map(p=>{
+          if(p.product._id==pid){
+            p.cant++
+          }
+        })
+      }
       return await modelEntity.findByIdAndUpdate(cid, resp);
     } catch (error) {
       console.log(error);

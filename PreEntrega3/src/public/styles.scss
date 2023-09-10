@@ -68,11 +68,14 @@
 .mainCart {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  min-height: calc(100vh - 100px);
+  flex-direction: column;
   .productTable {
     box-shadow: 0 0 5px #000;
     border-radius: 20px;
     padding: 20px;
+    min-width: 40vw;
     tbody {
       .productRow {
         img {
@@ -81,6 +84,92 @@
         text-align: center;
       }
     }
+  }
+
+  .BuyButton {
+    margin: 30px;
+    background: rgb(30, 184, 30);
+    color: white;
+    font-size: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgb(53, 185, 53);
+    padding: 10px;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    &:hover {
+      scale: 1.1;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+  }
+}
+
+.mainTicket {
+  display: flex;
+  align-items: center;
+  gap: 200px;
+  flex-direction: column;
+  min-height: calc(100vh - 100px);
+  .shadowTicket{
+    filter: drop-shadow(0 0 5px #000);
+  }
+  .ticket {
+    box-shadow: 0 0 5px #000;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 70px 10px;
+
+    img{
+      padding-top: 20px;
+    }
+    background: rgb(255, 255, 255);
+    clip-path: polygon(
+      0% 100%,
+      5% 98%,
+      10% 100%,
+      15% 98%,
+      20% 100%,
+      25% 98%,
+      30% 100%,
+      35% 98%,
+      40% 100%,
+      45% 98%,
+      50% 100%,
+      55% 98%,
+      60% 100%,
+      65% 98%,
+      70% 100%,
+      75% 98%,
+      80% 100%,
+      85% 98%,
+      90% 100%,
+      95% 98%,
+      100% 100%,
+      100% 0%,
+      95% 2%,
+      90% 0%,
+      85% 2%,
+      80% 0%,
+      75% 2%,
+      70% 0%,
+      65% 2%,
+      60% 0%,
+      55% 2%,
+      50% 0%,
+      45% 2%,
+      40% 0%,
+      35% 2%,
+      30% 0%,
+      25% 2%,
+      20% 0%,
+      15% 2%,
+      10% 0%,
+      5% 2%,
+      0% 0%,
+    );
   }
 }
 
@@ -167,11 +256,11 @@
   align-items: center;
   justify-content: center;
   .updateProduct {
-    img{
+    img {
       height: 400px;
       object-fit: cover;
     }
-    
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -180,19 +269,19 @@
     padding: 20px;
     gap: 10px;
 
-    input[type="text"]{
+    input[type="text"] {
       border: none;
       outline: none;
       border-bottom: 2px solid black;
       box-shadow: 0 5px 10px -5px black;
       font-size: 16px;
     }
-    .inputDescription{
+    .inputDescription {
       width: 100%;
       display: flex;
       align-items: center;
       flex-direction: column;
-      textarea{
+      textarea {
         border: none;
         outline: none;
         resize: vertical;
@@ -201,18 +290,15 @@
       }
     }
 
-    .updateButton{
+    .updateButton {
       background: rgb(7, 106, 255);
       color: white;
-      box-shadow:  0 0 5px rgb(67, 129, 223);
+      box-shadow: 0 0 5px rgb(67, 129, 223);
       outline: none;
       border: none;
       padding: 5px;
       cursor: pointer;
       font-size: 20px;
     }
-
   }
-
-
 }

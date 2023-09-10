@@ -1,6 +1,6 @@
 const {config} = require('../config')
 
-let Cart, Chat, Product, User;
+let Cart, Chat, Product, User, Ticket;
 
 
 switch (config.PERSISTENCE){
@@ -10,6 +10,9 @@ switch (config.PERSISTENCE){
     default: //MONGO ES DEFAULT
         let {User:Usermongo} = require('./mongo/user')
         User = Usermongo;
+
+        let {Ticket: TicketMongo} = require('./mongo/ticket')
+        Ticket = TicketMongo;
 
         let {Cart:Cartmongo} = require('./mongo/carts')
         Cart = Cartmongo
@@ -23,5 +26,5 @@ switch (config.PERSISTENCE){
 }
 
 module.exports = {
-    User, Cart, Chat, Product
+    User, Cart, Chat, Product, Ticket
 }

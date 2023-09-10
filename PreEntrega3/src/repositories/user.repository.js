@@ -4,7 +4,7 @@ class userRepository {
     this.dao = dao;
   }
 
-  async getUser(id, paginator = null, { query, sort }) {
+  async getUser(id, paginator = null, { query, sort}) {
     return await this.dao.getUser(id, (paginator = null), { query, sort });
   }
   async bulk(cant) {

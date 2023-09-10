@@ -9,7 +9,7 @@ module.exports = app =>{
   router.get("/bulkcreate/:cant", isAdmin, productController.bulk);
   router.get("/:id", productController.getProduct);
   router.post("/", isAdmin, productController.create);
-  router.put("/:id", isAdmin, productController.update);
+  router.post("/update/:id", isAdmin, productController.update);
   router.delete("/:id", isAdmin, productController.delete);
   
   const routerViews = new Router();

@@ -2,6 +2,7 @@ const passport = require('passport')
 const local = require('passport-local')
 const {userModel} = require('../../../dao/mongo/user')
 const {createHash, isValidPassword} = require('./bcrypt')
+const { CartService } = require('../../../repositories')
 
 const localStrategy = local.Strategy
 
@@ -33,6 +34,8 @@ const initializePassport = ()=>{
     passport.use('login', new localStrategy({
         usernameField:'email'
     }, async (username,password,done)=>{
+
+        
 
         try {
             const user = await userModel.findOne({email:username})

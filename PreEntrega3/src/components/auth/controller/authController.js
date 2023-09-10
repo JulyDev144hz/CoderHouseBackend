@@ -1,3 +1,4 @@
+
 const authService = require("../services/authSevice");
 class Auth {
   async loginView(req, res, next) {res.render("login", {});}
@@ -14,6 +15,9 @@ class Auth {
     if(response.status != 200) return res.status(response.status).json(response)
     let urlRender
     urlRender = 'login'
+
+
+
     if(response.response){
       req.session.user = {
         nombre: response.response.nombre,
@@ -38,7 +42,7 @@ class Auth {
       nombre: nombre,
       apellido: apellido,
       email: email,
-      role: role
+      role: role,
     }
     res.redirect('/auth/dashboard')
   }

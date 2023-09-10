@@ -28,46 +28,14 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-      let correo = "";
+      let correo = "<%=user.email%>";
       let regMail = RegExp("^[a-z0-9](\.?[a-z0-9]){5,}@g(oogle)?mail\.com$");
-      const alertaCorreo = () => {
-        Swal.fire({
-          title: "Ingrese su Correo Electronico",
-          input: "text",
-          inputAttributes: {
-            autocapitalize: "off",
-          },
-          showCancelButton: false,
-          confirmButtonText: "Ingresar",
-
-          allowOutsideClick: () => !Swal.isLoading(),
-        }).then((result) => {
-          if (result.isConfirmed) {
-            if (regMail.test(result.value)) {
-              correo = result.value;
-              Swal.fire({
-                title: "Ingreso con exito",
-                icon: "success",
-              });
-            } else {
-              Swal.fire({
-                title: "Mail no valido",
-                icon: "error",
-              }).then((e) => {
-                alertaCorreo();
-              });
-            }
-          } else {
-            alertaCorreo();
-          }
-        });
-      };
+     
       const enviarMensage = () => {
         let msg = $("#messageInput").val();
         socket.emit("newMessage", { user: correo, message: msg });
         $("#messageInput").val("");
       };
-        alertaCorreo();
 
       const socket = io();
       socket.on("init", (e) => {
