@@ -6,17 +6,17 @@ const CM = new CartManager(path.join(__dirname, "../carts.json"));
 class Products {
   get(req, res) {
     let carts = CM.getCarts();
-    res.json(carts);
+    return res.json(carts);
   }
   post(req, res) {
     CM.addCart(req.body.products);
 
-    res.json(CM.getCarts());
+    return res.json(CM.getCarts());
   }
   getId(req, res) {
     let id = parseInt(req.params.cid);
 
-    res.json(CM.getCartById(id));
+    return res.json(CM.getCartById(id));
   }
   postProductId(req, res) {
     try {
@@ -43,9 +43,9 @@ class Products {
         }
       }
 
-      res.json({ message: "Modificado con exito" });
+      return res.json({ message: "Modificado con exito" });
     } catch (error) {
-      res.json({ error: error });
+      return res.json({ error: error });
     }
   }
 }

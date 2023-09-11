@@ -1,11 +1,25 @@
-const chatModel = require("../../../models/mongo/chat");
+const { Schema, model } = require("mongoose");
+
+const collectionName = "chat";
+
+const collectionSchema = new Schema({
+  user: String,
+  message: String,
+  createdAt: {
+    type: Date,
+    default: Date.now()
+  }
+});
+
+const modelEntity = model(collectionName, collectionSchema);
+
 
 class Chat {
   async getChat(id) {
     try {
       let response = id
-        ? await chatModel.findById(id)
-        : await chatModel.find({});
+        ? await modelEntity.findById(id)
+        : await modelEntity.find({});
       return response;
     } catch (error) {
       console.log(error);
@@ -15,7 +29,7 @@ class Chat {
 
   async create(payload) {
     try {
-      return await chatModel.create(payload);
+      return await modelEntity.create(payload);
     } catch (error) {
       console.log(error);
     }
@@ -23,7 +37,7 @@ class Chat {
 
   async update(id, payload) {
     try {
-      return await chatModel.findByIdAndUpdate(id, payload, { new: true });
+      return await modelEntity.findByIdAndUpdate(id, payload, { new: true });
     } catch (error) {
       console.log(error);
     }
@@ -31,7 +45,7 @@ class Chat {
 
   async delete(id) {
     try {
-      return await chatModel.findByIdAndDelete(id);
+      return await modelEntity.findByIdAndDelete(id);
     } catch (error) {
       console.log(error);
     }
@@ -52,4 +66,4 @@ class Chat {
   }
 }
 
-module.exports = new Chat();
+module.exports = {Chat, chatModel: modelEntity} ;

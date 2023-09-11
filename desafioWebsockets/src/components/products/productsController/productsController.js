@@ -21,9 +21,9 @@ class Products {
     try {
       let id = parseInt(req.params.pid);
       let product = PM.getProductById(id);
-      res.json(product);
+      return res.json(product);
     } catch (error) {
-      res.json({ error: error });
+      return res.json({ error: error });
     }
   }
   post(req, res) {
@@ -61,27 +61,27 @@ class Products {
 
       socket.io.sockets.emit('newProduct', data)
 
-      res.redirect('http://localhost:8080/realtimeproducts')
+      return res.redirect('http://localhost:8080/realtimeproducts')
     } catch (error) {
-      res.json({ "message": `${error}` });
+      return res.json({ "message": `${error}` });
     }
   }
   put(req, res) {
     try {
       let id = parseInt(req.params.pid);
       PM.updateProduct(id, req.body);
-      res.json({ message: "Modificado con exito" });
+      return res.json({ message: "Modificado con exito" });
     } catch (error) {
-      res.json({ error: error });
+      return res.json({ error: error });
     }
   }
   delete(req, res) {
     try {
         let id = parseInt(req.params.pid)
         PM.deleteProduct(id)
-        res.json({'message':'Eliminado con exito'})
+        return res.json({'message':'Eliminado con exito'})
     } catch (error) {
-        res.json({'error':error})
+        return res.json({'error':error})
     }
   }
 }
