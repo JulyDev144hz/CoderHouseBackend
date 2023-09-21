@@ -52,13 +52,19 @@ class Product {
     let response = await ProductService.bulk(Number(cant));
     res.json(response);
   }
+  async mockingProducts(req,res,next){
+    let cant = 100
+    let response = await ProductService.bulk(Number(cant))
+    res.json(response);
+  }
 
   async create(req, res, next){
     let payload = req.body;
     //tdd
-    if(!payload.nombre && !payload.descripcion && 
-      !payload.precio && !payload.stock
+    if(!payload.nombre || !payload.descripcion || 
+      !payload.precio || !payload.stock
     ) return res.json({ERROR:"Parametros incorrectos para crear producto"})
+
 
     let response = await ProductService.create(payload);
     res.json(response);

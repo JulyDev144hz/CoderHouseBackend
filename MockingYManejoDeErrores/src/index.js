@@ -14,7 +14,7 @@ const passport = require("passport");
 const GithubStrategy = require("passport-github").Strategy;
 
 const Socket = require("./utils/sockets/socket.io");
-const {userModel} = require("./dao/mongo/user");
+const userModel = require("./dao/mongo/user");
 const faker = require('faker')
 const initializePassport = require('./components/auth/middleware/passport.config')
 

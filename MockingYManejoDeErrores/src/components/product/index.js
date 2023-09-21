@@ -17,4 +17,7 @@ module.exports = app =>{
   routerViews.get('/', isAuth ,productController.view)
   routerViews.get('/edit/:id', isAuth, isAdmin ,productController.viewUpdate)
 
+  //mockingproducts
+  app.get('/mockingproducts', productController.mockingProducts)
+
 }

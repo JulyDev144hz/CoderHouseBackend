@@ -8,20 +8,16 @@ switch (config.PERSISTENCE){
 
         break;
     default: //MONGO ES DEFAULT
-        let {User:Usermongo} = require('./mongo/user')
-        User = Usermongo;
+        User = require('../components/user/service/userService')
 
-        let {Ticket: TicketMongo} = require('./mongo/ticket')
-        Ticket = TicketMongo;
+        Ticket = require('../components/ticket/service/ticketService')
 
-        let {Cart:Cartmongo} = require('./mongo/carts')
-        Cart = Cartmongo
+        Cart = require('../components/cart/service/cartService')
+     
         
-        let {Chat:ChatMongo} = require('./mongo/chat')
-        Chat = ChatMongo
+        Chat= require('../components/chat/service/chatService')
 
-        let {Product:ProductMongo} = require('./mongo/product')
-        Product = ProductMongo
+        Product = require('../components/product/service/productService')
         break;
 }
 
