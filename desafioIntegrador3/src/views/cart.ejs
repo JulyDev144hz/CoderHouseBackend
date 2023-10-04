@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Cart</title>
+  </head>
+  <body>
+    <nav class="navBar">
+      <h1>Cart</h1>
+      <ul class="options">
+        <li><a href="/chatView">Chat</a></li>
+        <li><a href="/auth/logout">LogOut</a></li>
+        <li><a href="/auth/dashboard">DashBoard</a></li>
+        <li><a href="/products">Products</a></li>
+        <li>
+          <a href="/cart">Ver Carrito</a>
+        </li>
+      </ul>
+    </nav>
+
+    <main class="mainCart">
+      <table class="productTable">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% cart.products.forEach(p => { %>
+          <tr class="productRow" id="<%=p.product._id%>">
+            <td><img src="<%= p.product.imagen%>" alt="" /></td>
+            <td><%= p.product.nombre %></td>
+            <td><%= p.product.precio %></td>
+            <td><%= p.cant %></td>
+            <td>
+              <button onclick="remove('<%=p.product._id%>')">Remover</button>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+
+      <a href="/buy" class="BuyButton">Realizar Compra</a>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if (typeof error != "undefined"){ %>;
+    <script>
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "<%=error%>",
+      });
+    </script>
+    <% } %>
+    <script>
+      const remove = (id) => {
+        fetch("/api/cart/<%=user.cartID%>/products/" + id, {
+          method: "DELETE",
+        });
+        $(`#${id}`).remove();
+      };
+    </script>
+  </body>
+</html>

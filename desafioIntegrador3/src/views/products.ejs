@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Products</title>
+  </head>
+  <body>
+    <nav class="navBar">
+      <h1>Products</h1>
+      <ul class="options">
+        <li><a href="/chatView">Chat</a></li>
+        <li><a href="/products">Products</a></li>
+        <% if ( user.role == 'admin' || user.role == "premium") { %>
+        <li><a href="/products/create">CreateProduct</a></li>
+        <% }%>
+        <li><a href="/auth/dashboard">DashBoard</a></li>
+        <li><a href="/auth/logout">LogOut</a></li>
+        <li><a href="/cart">Ver Carrito</a></li>
+      </ul>
+    </nav>
+    <h2 style="text-align: center; padding-bottom: 10px">
+      Bienvenido <%= user.nombre+" "+user.apellido%>
+    </h2>
+    <div class="products">
+      <% products.payload.forEach(product => { %>
+      <div class="product" id="p<%=product._id%>">
+        <img src="<%= product.imagen%>" alt="Imagen" />
+        <h4><%= product.nombre %></h4>
+        <p class="description"><%= product.descripcion%></p>
+        <p class="info">
+          <span class="price"><%= product.precio%></span>
+          <span class="stock">Stock: <%= product.stock%></span>
+        </p>
+        <button onclick="addToCart('<%= product._id%>')">
+          Agregar al carrito
+        </button>
+        <% if ( user.role == 'admin' || user.email == product.owner) { %>
+        <button onclick="remove('<%= product._id%>')">Borrar</button>
+        <button onclick="update('<%=product._id%>')">Editar</button>
+        <% }%>
+      </div>
+      <% }); %>
+    </div>
+
+    <div class="handlePage">
+      <span class="currentPage">
+        <%= products.page %>/<%=products.totalPages%></span
+      >
+      <% if (products.hasPrevPage) {%>
+      <a href="<%= products.prevLink %>">prevLink</a>
+      <% }%> <% if (products.hasNextPage) {%>
+      <a href="<%= products.nextLink %>">NextPage</a>
+      <% }%>
+    </div>
+    <script>
+      const addToCart = id=>{
+        fetch('/api/cart/<%=user.cartID%>/addProduct/'+id)
+      }
+      const remove = id=>{
+        fetch('/api/product/'+id,{
+          method:"DELETE",  headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user:"<%=user.email%>"
+      }),
+        } )
+        document.getElementById(`p${id}`).style.display = 'none'
+      }
+      const update = id=>{
+        window.location = `/products/edit/${id}`
+      }
+    </script>
+  </body>
+</html>
