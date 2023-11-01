@@ -35,9 +35,11 @@ class Product {
       let crearCarrito = true;
       let cartID;
       resp.payload.map(async (cart) => {
-        if (req.session.user._id == cart.user._id.toString()) {
-          cartID = cart._id;
-          crearCarrito = false;
+        if(cart.user){
+          if (req.session.user._id == cart.user._id.toString()) {
+            cartID = cart._id;
+            crearCarrito = false;
+          }
         }
       });
 
