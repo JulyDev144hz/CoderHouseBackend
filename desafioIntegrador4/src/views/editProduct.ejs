@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Update Product</title>
+  </head>
+  <body>
+    <nav class="navBar">
+      <h1>Products</h1>
+      <ul class="options">
+        <li><a href="/chatView">Chat</a></li>
+        <li><a href="/products">Products</a></li>
+        <li><a href="/auth/dashboard">DashBoard</a></li>
+        <li><a href="/auth/logout">LogOut</a></li>
+        <li>
+          <a href="/cart/<%=user.cartID%>">Ver Carrito</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="mainUpdateProduct">
+      <form method="post" action="/api/product/update/<%=product._id%>" class="updateProduct">
+        <img src="<%=product.imagen%>" alt="" />
+
+        <div class="inputName">
+          <span>Nombre: </span>
+          <input type="text" name="nombre" value="<%=product.nombre%>" />
+        </div>
+
+        <div class="inputDescription">
+          <span>Descripcion: </span
+          ><textarea name="descripcion" id="" cols="30" rows="10">
+            <%=product.descripcion%></textarea
+          >
+        </div>
+
+        <div class="inputPrice">
+          <span>Precio:</span>
+          <input type="text" name="precio" value="<%=product.precio%>" />
+        </div>
+
+        <div class="inputStock">
+          <span>Stock: </span>
+          <input name="stock" type="text" value="<%=product.stock%>" />
+        </div>
+        <div class="inputStatus">
+          <span>Status: </span>
+          <input name="status" type="checkbox" name="" id="" <%=product.status?
+          "checked":""%>>
+        </div>
+
+        <button class="updateButton">Actualizar Producto</button>
+      </form>
+    </div>
+  </body>
+</html>
