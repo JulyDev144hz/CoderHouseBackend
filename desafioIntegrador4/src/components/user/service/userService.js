@@ -1,4 +1,4 @@
-const userModel = require('../../../dao/mongo/user')
+const userModel = require("../../../dao/mongo/user");
 const faker = require("faker");
 class User {
   async getUser(id, paginator = null, { query, sort }) {
@@ -30,25 +30,62 @@ class User {
     }
   }
 
-  async uploadDocuments(){
-    
+  async uploadDocuments(id, files) {
+    let documents = []
+    const documentNames = [
+      "dni",
+      "comprobante_domicilio",
+      "comprobante_estado_cuenta",
+    ];
+    console.log(files)
+    return {jose}
+    for (const file of files) {
+      const fileName = file.originalname.to.toLowerCase();
+      for(const documentName of documentNames ){
+        if (fileName.includes(documentName)){
+          documents.push({
+            name: documentName,
+            reference: file.fileName
+          })
+        }
+      }
+    }
+
+    await this.update(id,{documents})
+    return {message:"Los documentos han sido subidos satisfactoriamente."}
   }
-  async goToPremium(){
-    
+  async goToPremium(id) {
+    let user = await userModel.findById(id)
+    const hasRequiredDocuments = ""
+    let validateDocuments = {
+      dni:false,
+      comprobante_domicilio:false,
+      comprobante_estado_cuenta:false
+    }
+
+    let response = "No has cargado todos los documentos, no puedes ser premium"
+    if(user.documents.length === 3){
+      await this.update(id,{role: "PREMIUM"})
+      response = "Ya eres premium, felicitaciones"
+    }
+
+    return response
+
+
   }
   async bulk(cant) {
     try {
-        for (let i = 0; i < cant; i++) {
-          const user = {
-            nombre: faker.name.firstName(),
-            apellido: faker.name.lastName(),
-            email: faker.internet.email(),
-            edad: faker.date.past(),
-            isActive: faker.datatype.boolean(),
-            photo: `https://robohash.org/${faker.random.number()}`,
-          };
-          await userModel.create(user);
-        }
+      for (let i = 0; i < cant; i++) {
+        const user = {
+          nombre: faker.name.firstName(),
+          apellido: faker.name.lastName(),
+          email: faker.internet.email(),
+          edad: faker.date.past(),
+          isActive: faker.datatype.boolean(),
+          photo: `https://robohash.org/${faker.random.number()}`,
+        };
+        await userModel.create(user);
+      }
       return { res: true };
     } catch (error) {
       console.log(error);
@@ -80,10 +117,10 @@ class User {
     }
   }
 
-  async findByEmail(email){
+  async findByEmail(email) {
     return await userModel.findOne({
-      email:email
-    })
+      email: email,
+    });
   }
 }
 module.exports = new User();

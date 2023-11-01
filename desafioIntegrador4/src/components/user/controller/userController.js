@@ -22,6 +22,9 @@ class User {
     try {
       const {id} = req.params
       const files = req.files
+      console.log(files)
+      
+
       let response = userService.uploadDocuments(id, files)
       res.json(response)
     } catch (error) {

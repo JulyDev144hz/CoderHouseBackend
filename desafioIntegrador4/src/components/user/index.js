@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const userController = require("./controller/userController");
 const multer = require("../../utils/multer");
-const {isAuth} = require('../auth/middleware/index')
+const {isAuth} = require('../auth/middleware')
 module.exports = app =>{
   const router = new Router();
   app.use("/api/user", router);
@@ -13,8 +13,18 @@ module.exports = app =>{
   router.delete("/:id", userController.delete);
 
   //integradora 4
-  router.post("/:id(\\d+)/documents", isAuth, multer.array('documents', 3),userController.uploadDocuments);
-  router.put("/premium/:id(\\d+)", userController.goToPremium);
+
+  /**
+   * Estoy teniendo problemas con multer
+   * me aparece en el controlador como que files es undefined y no se como solucionarlo
+   */
+  router.post("/:id/documents", isAuth, multer.array('documents'),userController.uploadDocuments);
+  router.put("/premium/:id", userController.goToPremium);
+
+  app.get("/formDocuments", (req,res,next)=>{
+    console.log(req.session.user)
+    res.render('formDocuments', {user: req.session.user})
+  })
 
   app.get('/current', (req,res)=>{
     let response =  {...req.session.user}
