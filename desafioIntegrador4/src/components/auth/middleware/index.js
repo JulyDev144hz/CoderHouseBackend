@@ -20,7 +20,7 @@ function isNotAuth(req, res, next) {
 }
 function isAdmin(req, res, next) {
   try {
-    if (req.session.user.role == "admin" || "premium") {
+    if (req.session.user.role == "ADMIN" || req.session.user.role == "PREMIUM") {
       return next()
     }
     throw new Error("No eres admin");

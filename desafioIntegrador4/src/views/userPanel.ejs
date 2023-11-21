@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Panel</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <nav class="navBar">
+      <h1>Vista de Admin</h1>
+      <ul class="options">
+        <li><a href="/chatView">Chat</a></li>
+        <li><a href="/products">Products</a></li>
+        <li><a href="/auth/dashBoard">Dashboard</a></li>
+        <li><a href="/auth/logout">LogOut</a></li>
+      </ul>
+    </nav>
+    <div class="viewUserBody">
+      <div class="userPanel">
+        <% users.payload.forEach(user => { %>
+        <div class="user" id="<%= user._id%>">
+          <p>
+            <span class="usernombre"><%= user.nombre%> </span
+            ><span class="userapellido"><%=user.apellido%> </span
+            ><span class="useremail"><%=user.email%> </span
+            ><span class="userrole"><%=user.role%></span>
+            <span class="id" style="display: none"><%= user._id%></span>
+          </p>
+          <button onclick='actualizar("<%=user._id%>")'>Modificar</button>
+          <button onclick='borrar("<%=user._id%>")'>Borrar</button>
+        </div>
+        <% }); %>
+      </div>
+      <div class="handlePage">
+        <span class="currentPage">
+          <%= users.page %>/<%=users.totalPages%></span
+        >
+        <% if (users.hasPrevPage) {%>
+        <a href="<%= users.prevLink %>">Atras</a>
+        <% }%> <% if (users.hasNextPage) {%>
+        <a href="<%= users.nextLink %>">Adelante</a>
+        <% }%>
+      </div>
+    </div>
+
+    <script>
+      function actualizar(id) {
+        let div = document.getElementById(`${id}`);
+        div.childNodes[3].outerHTML = `<button onclick='guardar("${div.childNodes[1].childNodes[6].innerHTML}")'>Guardar</button>`;
+        div.childNodes[1].childNodes[4].outerHTML = `<input class="userrole" value="${div.childNodes[1].childNodes[4].innerHTML}"></input>`;
+      }
+      function guardar(id) {
+        let div = document.getElementById(`${id}`);
+        let userid = div.childNodes[1].childNodes[6].innerHTML;
+        let rol = div.childNodes[1].childNodes[4].value;
+        console.log(
+          (div.childNodes[3].outerHTML = `<button onclick='actualizar("${div.childNodes[1].childNodes[6].innerHTML}")'>Modificar</button>`)
+        );
+        div.childNodes[1].childNodes[4].outerHTML = `<span class="userrole">${div.childNodes[1].childNodes[4].value}</span>`;
+
+        fetch("/api/user/" + id, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            role: rol,
+          }),
+        });
+      }
+      function borrar(id) {
+        fetch("/api/user/" + id, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            
+          }),
+        });
+
+        document.getElementById(`${id}`).style.display = "none";
+      }
+    </script>
+  </body>
+</html>

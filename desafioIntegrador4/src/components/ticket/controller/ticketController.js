@@ -4,6 +4,9 @@ const {
   UserService,
   ProductService,
 } = require("../../../repositories/index");
+
+const { MercadoPagoConfig, Payment } = require("mercadopago");
+
 class Ticket {
   async getTicket(req, res, next) {
     try {
@@ -52,6 +55,21 @@ class Ticket {
     }
   }
   async buy(req, res, next) {
+    // let client = new MercadoPagoConfig({
+    //   accessToken:
+    //     "TEST-536725641561027-112022-315761142af56063931d23e9305519e1-1559171798",
+    // });
+    // const payment = new Payment(client);
+
+    // payment.create({
+    //   transaction_amount: 3000,
+    //   description: "<DESCRIPTION>",
+    //   payment_method_id:"Debin_transfer",
+    //   payer: {
+    //     email: "julianippolito01@gmail.com",
+    //   },
+    // }).then(console.log).catch(console.log)
+
     try {
       let request1 = await CartService.getCart(req.session.user.cartID, null, {
         query: "{}",

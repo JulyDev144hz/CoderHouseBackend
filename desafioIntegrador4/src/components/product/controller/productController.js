@@ -1,8 +1,10 @@
+const { config } = require("../../../config");
 const {
   ProductService,
   CartService,
   UserService,
 } = require("../../../repositories/index");
+const mailManager = require("../../../utils/mailManager");
 class Product {
   async createProductView(req, res, next) {
     res.render("createProduct", { user: req.session.user });
@@ -103,8 +105,8 @@ class Product {
   async create(req, res, next) {
     try {
       if (
-        req.session.user.role != "premium" &&
-        req.session.user.role != "admin"
+        req.session.user.role != "PREMIUM" &&
+        req.session.user.role != "ADMIN"
       )
         throw new Error("No puedes crear un producto");
 
@@ -120,11 +122,11 @@ class Product {
           ERROR: "Parametros incorrectos para crear producto",
         });
 
-      if (req.session.user.role == "premium") {
+      if (req.session.user.role == "PREMIUM") {
         payload = { ...payload, owner: req.session.user.email };
       }
       let response = await ProductService.create(payload);
-      res.json(response);
+      next()
     } catch (error) {
       req.logger.error(error);
     }
@@ -147,21 +149,46 @@ class Product {
     try {
       const { page = 1, limit = 10, query = "{}", sort = "{}" } = req.query;
       let { id = null } = req.params;
-
       let p = await ProductService.getProduct(
         id,
         { page, limit },
         { query, sort }
       );
-
+     
       if (
-        req.session.user.role == "premium" &&
+        req.session.user.role == "PREMIUM" &&
         p.owner != req.session.user.email
       )
         throw new Error("No puedes eliminar este producto");
+
+      let email = p.owner
+      
+
+        console.log(email)
+      const htmlResetEmail = `
+      <h1>Hola ${email}</h1>
+      <p>
+        Se le notifica que un producto suyo a sido eliminado
+      </p>
+    `;
+        try {
+          
+          await mailManager.sendEmail({
+            from: config.nodemailer_user,
+            to: email,
+            subject: "Producto Eliminado de Ecommerce",
+            html: htmlResetEmail,
+          });
+        } catch (error) {
+          req.logger.info("No se pudo enviar mail")
+        }
+
+
       let response = await ProductService.delete(id);
+      
       res.json(response);
     } catch (error) {
+      console.log(error)
       req.logger.error(error);
     }
   }

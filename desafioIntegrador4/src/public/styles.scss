@@ -63,6 +63,9 @@
       border-radius: 5px;
       box-shadow: inset 0 0 5px #000;
     }
+    #becomePremium {
+      background: rgb(167, 128, 0);
+    }
   }
 }
 .mainCart {
@@ -111,7 +114,7 @@
   gap: 200px;
   flex-direction: column;
   min-height: calc(100vh - 100px);
-  .shadowTicket{
+  .shadowTicket {
     filter: drop-shadow(0 0 5px #000);
   }
   .ticket {
@@ -122,7 +125,7 @@
     flex-direction: column;
     padding: 70px 10px;
 
-    img{
+    img {
       padding-top: 20px;
     }
     background: rgb(255, 255, 255);
@@ -168,7 +171,7 @@
       15% 2%,
       10% 0%,
       5% 2%,
-      0% 0%,
+      0% 0%
     );
   }
 }
@@ -300,5 +303,204 @@
       cursor: pointer;
       font-size: 20px;
     }
+  }
+}
+
+// premium
+
+.premiumBody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+
+  flex-direction: column;
+  h1 {
+    font-size: 50px;
+  }
+  p,
+  span {
+    font-size: 20px;
+    margin: 20px;
+  }
+  .alertPremium {
+    color: white;
+    background: red;
+    padding: 5px;
+    box-shadow: 0 0 5px red;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0 0 5px goldenrod;
+    border-radius: 10px;
+    background: goldenrod;
+  }
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 20px;
+    li {
+      font-size: 30px;
+    }
+  }
+  #premium {
+    font-size: 50px;
+    color: gold;
+    margin: 0;
+    text-shadow: 0 0 5px rgb(255, 255, 255), 0 0 10px gold,
+      0 0 15px rgb(255, 225, 58);
+    animation: forwards infinite titilaPremium 1s;
+  }
+}
+
+.formPremiumBody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  h1 {
+    position: absolute;
+    top: 0;
+  }
+
+  height: 90vh;
+  .premiumForm {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+    box-shadow: 0 0 5px #000;
+    #documents {
+      color: transparent;
+      width: 100%;
+      height: 200px;
+      position: relative;
+      border: 2px solid black;
+      border-radius: 20px;
+      box-shadow: 0 0 5px #000;
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background: rgb(255, 255, 255);
+        background: url("./assets/images/upload.png"), #f1fcfc;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+    .enviar {
+      border: none;
+      outline: none;
+      height: 50px;
+      position: relative;
+      z-index: 2;
+      font-size: 30px;
+      color: white;
+      border: 2px solid #000000;
+      background: rgb(0, 153, 153);
+      box-shadow: -5px 5px 0 #000000;
+      translate: 5px -5px;
+      cursor: pointer;
+      &:active {
+        background: red;
+        box-shadow: 0 0 0 #000000;
+        transition: 0.2s;
+        translate: 0 0;
+      }
+    }
+  }
+}
+
+@keyframes titilaPremium {
+  0%,
+  50%,
+  100% {
+    text-shadow: 0 0 5px rgb(255, 255, 255), 0 0 10px gold,
+      0 0 15px rgb(255, 225, 58);
+  }
+  25%,
+  75% {
+    text-shadow: 0 0 5px rgb(255, 255, 255), 0 0 10px rgb(251, 255, 0);
+  }
+}
+
+.viewUserBody {
+
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+  .userPanel{
+    background: #e0e0e0;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 20px;
+    box-shadow: 0 0 5px #000;
+    display: flex;
+    flex-direction: column;
+
+    .user{
+      padding: 20px;
+      font-size: 20px;
+      text-transform: uppercase;
+      display: grid;
+      grid-template-columns: 8fr 1fr 1fr;
+      button{
+        background: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        transition: .2s;
+        &:hover{
+          transform: scale(1.2);
+        }
+
+      }
+      input.userrole{
+        outline: none;
+        border: none;
+        background: transparent;
+        font-size: 20px;
+        color: rgb(206, 0, 189);
+        width: 120px;
+      }
+
+      &:nth-child(odd){
+        background: rgb(41, 41, 41);
+        color: white;
+        button{
+          color: white;
+        }
+      }
+    }
+  }
+
+  .handlePage{
+    margin: 20px;
+    font-size: 30px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    .currentPage{
+      grid-column: 1/3;
+    }
+    a{
+      color: black;
+      text-decoration: none;
+    }
+    box-shadow: 0 0 5px;
+    border-radius: 20px;
+    padding: 20px;
   }
 }

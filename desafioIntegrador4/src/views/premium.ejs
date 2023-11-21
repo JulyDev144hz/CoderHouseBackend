@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premium</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="navBar">
+      <h1>Bienvenido <%= user.nombre+" "+user.apellido %></h1>
+      <ul class="options">
+        <li><a href="/chatView">Chat</a></li>
+        <li><a href="/products">Products</a></li>
+        <li><a href="/auth/dashBoard">Dashboard</a></li>
+        <li><a href="/auth/logout">LogOut</a></li>
+      </ul>
+    </nav>
+    <div class="premiumBody">
+      <h1>Conviertete en <span id="premium">Premium!</span></h1>
+      <p>
+        Para convertirte en premium primero debes adjuntar los siguentes 3
+        archivos para verificarte.
+      </p>
+      <ul>
+        <li>DNI</li>
+        <li>Comprobante de domicilio</li>
+        <li>Comprobante de estado de cuenta</li>
+      </ul>
+      <p>Una vez enviado los archivos correspondientes, ya seras premium.</p>
+      <br />
+      <span class="alertPremium"
+        >** LOS ARCHIVOSA DEBEN TENER LOS NOMBRES: dni, comprobante_domicilio,
+        comprobante_estado_cuenta **</span
+      >
+      <a href="/formDocuments">Subir documentacion.</a>
+    </div>
+  </body>
+</html>

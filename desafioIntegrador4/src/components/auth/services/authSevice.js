@@ -16,6 +16,7 @@ class Auth {
         return { status: 401, response: "El usuario no existe en la DB!" };
       if (!isValidPassword(password, resp))
         return { status: 403, response: "La password no es valida" };
+        await userModel.findOneAndUpdate({"email":email}, {"last_connection":Date.now()})
       return { status: 200, response: resp };
     } catch (error) {
       console.log(error);

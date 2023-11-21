@@ -1,6 +1,15 @@
 const userModel = require("../../../dao/mongo/user");
 const faker = require("faker");
 class User {
+
+  async get(){
+    try {
+      return await userModel.find({})
+    } catch (error) {
+      return []
+    }
+  }
+
   async getUser(id, paginator = null, { query, sort }) {
     try {
       let response = id
@@ -18,10 +27,10 @@ class User {
         payload,
         ...response,
         prevLink: response.hasPrevPage
-          ? `/user?page=${Number(paginator.page) - 1}`
+          ? `/admin/viewUsers?page=${Number(paginator.page) - 1}`
           : null,
         nextLink: response.hasNextPage
-          ? `/user?page=${Number(paginator.page) + 1}`
+          ? `/admin/viewUsers?page=${Number(paginator.page) + 1}`
           : null,
       };
     } catch (error) {
@@ -38,9 +47,8 @@ class User {
       "comprobante_estado_cuenta",
     ];
     console.log(files)
-    return {jose}
     for (const file of files) {
-      const fileName = file.originalname.to.toLowerCase();
+      const fileName = file.originalname.toLowerCase();
       for(const documentName of documentNames ){
         if (fileName.includes(documentName)){
           documents.push({

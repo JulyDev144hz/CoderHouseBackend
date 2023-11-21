@@ -35,8 +35,8 @@ const collectionSchema = new Schema({
   photo: String,
   role: {
     type:String,
-    enum:['admin','operation','content','user'],
-    default:'operation'
+    enum:['admin'.toUpperCase(),'operation'.toUpperCase(),'content'.toUpperCase(),'user'.toUpperCase()],
+    default:'operation'.toUpperCase()
   },
 });
 collectionSchema.plugin(mongoosePaginate)

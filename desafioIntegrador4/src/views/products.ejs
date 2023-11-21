@@ -13,7 +13,7 @@
       <ul class="options">
         <li><a href="/chatView">Chat</a></li>
         <li><a href="/products">Products</a></li>
-        <% if ( user.role == 'admin' || user.role == "premium") { %>
+        <% if ( user.role == 'ADMIN' || user.role == "PREMIUM") { %>
         <li><a href="/products/create">CreateProduct</a></li>
         <% }%>
         <li><a href="/auth/dashboard">DashBoard</a></li>
@@ -37,7 +37,7 @@
         <button onclick="addToCart('<%= product._id%>')">
           Agregar al carrito
         </button>
-        <% if ( user.role == 'admin' || user.email == product.owner) { %>
+        <% if ( user.role == 'ADMIN' || user.email == product.owner) { %>
         <button onclick="remove('<%= product._id%>')">Borrar</button>
         <button onclick="update('<%=product._id%>')">Editar</button>
         <% }%>

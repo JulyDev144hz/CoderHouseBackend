@@ -11,6 +11,10 @@
     <nav class="navBar">
       <h1>Bienvenido <%= user.nombre+" "+user.apellido %></h1>
       <ul class="options">
+        <% if (user.role == "ADMIN") { %>
+  
+          <li><a href="/admin/viewUsers">Ver Usuarios</a></li>
+          <% } %>
         <li><a href="/chatView">Chat</a></li>
         <li><a href="/products">Products</a></li>
         <li><a href="/auth/dashBoard">Dashboard</a></li>
@@ -26,6 +30,12 @@
           <li>Email: <%= user.email%></li>
           <li>Role: <%= user.role%></li>
         </ul>
+
+        <% if (user.role != "PREMIUM") { %>
+        <a href="/premium" id="becomePremium">Volverse Premium</a>
+
+        <% } %>
+
         <a href="/">Volver a Ecommerce</a>
       </div>
     </div>

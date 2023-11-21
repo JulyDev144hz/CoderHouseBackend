@@ -67,6 +67,9 @@
   border-radius: 5px;
   box-shadow: inset 0 0 5px #000;
 }
+.dashboardBody .infoUser #becomePremium {
+  background: rgb(167, 128, 0);
+}
 
 .mainCart {
   display: flex;
@@ -254,4 +257,184 @@
   padding: 5px;
   cursor: pointer;
   font-size: 20px;
+}
+
+.premiumBody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  flex-direction: column;
+}
+.premiumBody h1 {
+  font-size: 50px;
+}
+.premiumBody p,
+.premiumBody span {
+  font-size: 20px;
+  margin: 20px;
+}
+.premiumBody .alertPremium {
+  color: white;
+  background: red;
+  padding: 5px;
+  box-shadow: 0 0 5px red;
+}
+.premiumBody a {
+  text-decoration: none;
+  color: white;
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 0 0 5px goldenrod;
+  border-radius: 10px;
+  background: goldenrod;
+}
+.premiumBody ul {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 20px;
+}
+.premiumBody ul li {
+  font-size: 30px;
+}
+.premiumBody #premium {
+  font-size: 50px;
+  color: gold;
+  margin: 0;
+  text-shadow: 0 0 5px rgb(255, 255, 255), 0 0 10px gold, 0 0 15px rgb(255, 225, 58);
+  animation: forwards infinite titilaPremium 1s;
+}
+
+.formPremiumBody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  height: 90vh;
+}
+.formPremiumBody h1 {
+  position: absolute;
+  top: 0;
+}
+.formPremiumBody .premiumForm {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+  box-shadow: 0 0 5px #000;
+}
+.formPremiumBody .premiumForm #documents {
+  color: transparent;
+  width: 100%;
+  height: 200px;
+  position: relative;
+  border: 2px solid black;
+  border-radius: 20px;
+  box-shadow: 0 0 5px #000;
+}
+.formPremiumBody .premiumForm #documents::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgb(255, 255, 255);
+  background: url("./assets/images/upload.png"), #f1fcfc;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.formPremiumBody .premiumForm .enviar {
+  border: none;
+  outline: none;
+  height: 50px;
+  position: relative;
+  z-index: 2;
+  font-size: 30px;
+  color: white;
+  border: 2px solid #000000;
+  background: rgb(0, 153, 153);
+  box-shadow: -5px 5px 0 #000000;
+  translate: 5px -5px;
+  cursor: pointer;
+}
+.formPremiumBody .premiumForm .enviar:active {
+  background: red;
+  box-shadow: 0 0 0 #000000;
+  transition: 0.2s;
+  translate: 0 0;
+}
+
+@keyframes titilaPremium {
+  0%, 50%, 100% {
+    text-shadow: 0 0 5px rgb(255, 255, 255), 0 0 10px gold, 0 0 15px rgb(255, 225, 58);
+  }
+  25%, 75% {
+    text-shadow: 0 0 5px rgb(255, 255, 255), 0 0 10px rgb(251, 255, 0);
+  }
+}
+.viewUserBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.viewUserBody .userPanel {
+  background: #e0e0e0;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 20px;
+  box-shadow: 0 0 5px #000;
+  display: flex;
+  flex-direction: column;
+}
+.viewUserBody .userPanel .user {
+  padding: 20px;
+  font-size: 20px;
+  text-transform: uppercase;
+  display: grid;
+  grid-template-columns: 8fr 1fr 1fr;
+}
+.viewUserBody .userPanel .user button {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.viewUserBody .userPanel .user button:hover {
+  transform: scale(1.2);
+}
+.viewUserBody .userPanel .user input.userrole {
+  outline: none;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  color: rgb(206, 0, 189);
+  width: 120px;
+}
+.viewUserBody .userPanel .user:nth-child(odd) {
+  background: rgb(41, 41, 41);
+  color: white;
+}
+.viewUserBody .userPanel .user:nth-child(odd) button {
+  color: white;
+}
+.viewUserBody .handlePage {
+  margin: 20px;
+  font-size: 30px;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  box-shadow: 0 0 5px;
+  border-radius: 20px;
+  padding: 20px;
+}
+.viewUserBody .handlePage .currentPage {
+  grid-column: 1/3;
+}
+.viewUserBody .handlePage a {
+  color: black;
+  text-decoration: none;
 }/*# sourceMappingURL=styles.css.map */

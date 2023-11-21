@@ -1,6 +1,7 @@
 const modelEntity = require('../../../dao/mongo/product')
 
 const faker = require("faker");
+const mailManager = require('../../../utils/mailManager');
 class Product {
   async getProduct(id, paginator = null, {query, sort}) {
     try {
@@ -47,6 +48,7 @@ class Product {
       return [];
     }
   }
+
 
   async create(payload) {
     try {

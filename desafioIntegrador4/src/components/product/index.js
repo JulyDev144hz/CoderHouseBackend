@@ -81,7 +81,7 @@ module.exports = (app) => {
    *      500: 
    *        description: Error del servidor
    */
-  router.post("/", isAdmin, productController.create);
+  router.post("/", isAdmin, productController.create, (req,res,next)=>{res.redirect('/products')});
   /**
    * @swagger
    * /api/product/update/{id}:
@@ -105,9 +105,9 @@ module.exports = (app) => {
    *      500: 
    *        description: Error del servidor
    */
-  router.delete("/:id", isAdmin, productController.delete);
+  router.delete("/:id",  isAdmin, productController.delete);
 
-  app.get("/products/create", isAuth, productController.createProductView);
+  app.get("/products/create", isAuth, isAdmin, productController.createProductView);
 
   const routerViews = new Router();
   app.use("/products", routerViews);
